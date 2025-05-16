@@ -3,10 +3,7 @@
 import { useState } from 'react';
 
 const ContactForm = () => {
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-theme-surface-1 text-text-primary"
-            placeholder="john.doe@example.com"nst [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
@@ -182,4 +179,5 @@ const ContactForm = () => {
   );
 };
 
+export default ContactForm;
 export default ContactForm;
