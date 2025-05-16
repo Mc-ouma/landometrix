@@ -8,32 +8,32 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="py-4 px-6 md:px-12 bg-white dark:bg-gray-900 shadow-sm fixed w-full z-10">
+    <header className="py-4 px-6 md:px-12 bg-surface-1 dark:bg-surface-1 shadow-md fixed w-full z-10 backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+          <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary dark:from-primary-light dark:to-secondary-light bg-clip-text text-transparent">
             Landometrix
           </span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+          <Link href="/" className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium">
             Home
           </Link>
-          <Link href="/services" className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+          <Link href="/services" className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium">
             Services
           </Link>
-          <Link href="/about" className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+          <Link href="/about" className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium">
             About
           </Link>
-          <Link href="/contact" className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+          <Link href="/contact" className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium">
             Contact
           </Link>
           <ThemeClient />
           <Link 
             href="/contact" 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
+            className="bg-primary hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary text-white px-5 py-2 rounded-md transition-colors shadow-sm hover:shadow-md"
           >
             Get Started
           </Link>
@@ -64,38 +64,38 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <nav className="md:hidden pt-4 pb-3 px-6 space-y-3 bg-white dark:bg-gray-900">
+        <nav className="md:hidden pt-4 pb-3 px-6 space-y-3 bg-surface-1 dark:bg-surface-1 border-t border-gray-200 dark:border-gray-800 animate-fadeIn">
           <Link 
             href="/" 
-            className="block text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 py-2"
+            className="block text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light py-2"
             onClick={() => setIsMenuOpen(false)}
           >
             Home
           </Link>
           <Link 
             href="/services" 
-            className="block text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 py-2"
+            className="block text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light py-2"
             onClick={() => setIsMenuOpen(false)}
           >
             Services
           </Link>
           <Link 
             href="/about" 
-            className="block text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 py-2"
+            className="block text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light py-2"
             onClick={() => setIsMenuOpen(false)}
           >
             About
           </Link>
           <Link 
             href="/contact" 
-            className="block text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 py-2"
+            className="block text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light py-2"
             onClick={() => setIsMenuOpen(false)}
           >
             Contact
           </Link>
           <Link 
             href="/contact" 
-            className="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md w-full text-center mt-3"
+            className="block bg-primary hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary text-white px-4 py-2 rounded-md w-full text-center mt-3 shadow-sm"
             onClick={() => setIsMenuOpen(false)}
           >
             Get Started

@@ -24,11 +24,11 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-br from-blue-50 to-gray-50 dark:from-gray-900 dark:to-gray-800 py-16 md:py-24 px-6 md:px-12">
+    <section className="bg-theme-gradient-2 py-16 md:py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             Don't just take our word for it - hear from some of our satisfied clients
           </p>
         </div>
@@ -37,7 +37,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700"
+              className="bg-theme-surface-1 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700"
             >
               <div className="mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -52,7 +52,7 @@ const TestimonialsSection = () => {
                   </svg>
                 ))}
               </div>
-              <blockquote className="text-gray-700 dark:text-gray-300 mb-6 italic">
+              <blockquote className="text-gray-800 dark:text-gray-200 mb-6 italic">
                 "{testimonial.quote}"
               </blockquote>
               <div className="flex items-center">

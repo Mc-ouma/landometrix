@@ -5,7 +5,7 @@ import AnimateOnScroll from './AnimateOnScroll';
 
 const HeroSection = () => {
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+    <div className="bg-theme-gradient-1">
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 lg:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -19,7 +19,7 @@ const HeroSection = () => {
             </AnimateOnScroll>
             
             <AnimateOnScroll animation="fade-in-up" delay={200}>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg">
+              <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 max-w-lg">
                 Landometrix delivers cutting-edge data analysis and professional web services to help your business grow.
               </p>
             </AnimateOnScroll>

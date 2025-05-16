@@ -33,7 +33,7 @@ const CookieConsent = () => {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 shadow-lg border-t border-gray-200 dark:border-gray-800 z-50 px-4 py-4 md:py-3">
+    <div className="fixed bottom-0 left-0 right-0 bg-theme-surface-1 shadow-lg border-t border-gray-200 dark:border-gray-800 z-50 px-4 py-4 md:py-3">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="text-sm text-gray-700 dark:text-gray-300">
           <p className="mb-1 font-medium">We value your privacy</p>
@@ -45,7 +45,7 @@ const CookieConsent = () => {
         <div className="flex flex-col sm:flex-row gap-2">
           <button
             onClick={handleDecline}
-            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-theme-surface-2 rounded-md transition-colors"
             aria-label="Decline cookies"
           >
             Decline

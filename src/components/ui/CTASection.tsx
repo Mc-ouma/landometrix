@@ -3,7 +3,7 @@ import Link from 'next/link';
 const CTASection = () => {
   return (
     <section className="py-16 md:py-24 px-6 md:px-12">
-      <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl shadow-xl overflow-hidden">
+      <div className="max-w-5xl mx-auto bg-theme-gradient-primary rounded-2xl shadow-xl overflow-hidden">
         <div className="relative px-6 py-10 md:p-12 text-center md:text-left">
           {/* Background Pattern */}
           <div className="absolute top-0 left-0 w-full h-full opacity-10">

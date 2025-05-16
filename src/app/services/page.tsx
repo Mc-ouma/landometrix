@@ -70,11 +70,11 @@ const ServicesPage = () => {
   return (
     <div>
       {/* Hero section */}
-      <section className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 py-20">
+      <section className="bg-theme-gradient-1 py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-xl text-gray-700 dark:text-gray-300">
               Comprehensive data analysis and web services to help your business thrive in the digital world
             </p>
           </div>
@@ -102,7 +102,7 @@ const ServicesPage = () => {
               {/* Content */}
               <div className="w-full md:w-1/2">
                 <h2 className="text-3xl font-bold mb-4">{service.title}</h2>
-                <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
+                <p className="text-gray-700 dark:text-gray-300 text-lg mb-6">
                   {service.description}
                 </p>
                 <ul className="space-y-3 mb-8">
@@ -128,10 +128,10 @@ const ServicesPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-6 md:px-12 bg-gray-50 dark:bg-gray-800">
+      <section className="py-16 px-6 md:px-12 bg-theme-surface-2">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Need a customized solution?</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
             Our team can develop tailored solutions to address your specific business challenges.
           </p>
           <Link

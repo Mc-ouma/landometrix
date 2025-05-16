@@ -38,7 +38,7 @@ export default function RootLayout({
   const serviceSchema = generateServiceSchema();
 
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

@@ -35,7 +35,7 @@ const BlogSection = () => {
     <section className="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Insights</h2>
-        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
           Stay updated with our latest thoughts on data analysis, web development, and industry trends
         </p>
       </div>
@@ -44,9 +44,9 @@ const BlogSection = () => {
         {blogPosts.map((post) => (
           <article 
             key={post.id} 
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col"
+            className="bg-theme-surface-1 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col"
           >
-            <div className="h-48 bg-gradient-to-br from-gray-100 to-blue-50 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+            <div className="h-48 bg-theme-gradient-2 flex items-center justify-center">
               <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                 <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
@@ -69,7 +69,7 @@ const BlogSection = () => {
                 </Link>
               </h3>
               
-              <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 flex-grow">
+              <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3 flex-grow">
                 {post.excerpt}
               </p>
               
@@ -95,7 +95,7 @@ const BlogSection = () => {
       <div className="mt-12 text-center">
         <Link 
           href="/blog"
-          className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium px-8 py-3 rounded-md inline-flex items-center transition-colors"
+          className="bg-theme-surface-2 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium px-8 py-3 rounded-md inline-flex items-center transition-colors"
         >
           View All Articles
           <svg className="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -53,7 +53,7 @@ const ServicesSection = () => {
       <AnimateOnScroll animation="fade-in-up">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             Comprehensive data and web solutions tailored to your business needs
           </p>
         </div>
@@ -68,13 +68,13 @@ const ServicesSection = () => {
             threshold={0.2}
           >
             <div 
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-100 dark:border-gray-700"
+              className="bg-theme-surface-1 rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-100 dark:border-gray-700"
             >
               <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 text-blue-600 dark:text-blue-400">
                 {service.icon}
               </div>
               <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-5">
+              <p className="text-gray-700 dark:text-gray-300 mb-5">
                 {service.description}
               </p>
               <Link 
@@ -95,7 +95,7 @@ const ServicesSection = () => {
         <div className="mt-12 text-center">
           <Link 
             href="/services"
-            className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium px-8 py-3 rounded-md inline-flex items-center transition-colors"
+            className="bg-theme-surface-2 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium px-8 py-3 rounded-md inline-flex items-center transition-colors"
           >
             View All Services
             <svg className="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

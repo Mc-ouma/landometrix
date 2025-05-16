@@ -10,11 +10,11 @@ const ContactPage = () => {
   return (
     <div>
       {/* Hero section */}
-      <section className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 py-16 md:py-20">
+      <section className="bg-theme-gradient-1 py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-xl text-gray-700 dark:text-gray-300">
               Have questions about our services? Ready to start a project? Get in touch with our team.
             </p>
           </div>
@@ -37,8 +37,8 @@ const ContactPage = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold mb-1">Email</h3>
-                  <p className="text-gray-600 dark:text-gray-400">info@landometrix.com</p>
-                  <p className="text-gray-600 dark:text-gray-400">support@landometrix.com</p>
+                  <p className="text-gray-700 dark:text-gray-300">info@landometrix.com</p>
+                  <p className="text-gray-700 dark:text-gray-300">support@landometrix.com</p>
                 </div>
               </div>
 
@@ -50,8 +50,8 @@ const ContactPage = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold mb-1">Phone</h3>
-                  <p className="text-gray-600 dark:text-gray-400">+1 (555) 123-4567</p>
-                  <p className="text-gray-600 dark:text-gray-400">Mon-Fri, 9am-5pm EST</p>
+                  <p className="text-gray-700 dark:text-gray-300">+1 (555) 123-4567</p>
+                  <p className="text-gray-700 dark:text-gray-300">Mon-Fri, 9am-5pm EST</p>
                 </div>
               </div>
 
@@ -64,7 +64,7 @@ const ContactPage = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold mb-1">Location</h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-700 dark:text-gray-300">
                     123 Business Avenue<br />
                     Tech City, CA 90210<br />
                     United States
@@ -127,7 +127,7 @@ const ContactPage = () => {
       {/* Map Section */}
       <section className="py-8 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="aspect-[2/1] bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center">
-          <p className="text-gray-600 dark:text-gray-400 text-center">
+          <p className="text-gray-700 dark:text-gray-300 text-center">
             <svg className="w-10 h-10 mx-auto mb-2 opacity-60" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
             </svg>
@@ -137,34 +137,34 @@ const ContactPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 px-6 md:px-12 bg-gray-50 dark:bg-gray-800">
+      <section className="py-16 px-6 md:px-12 bg-theme-surface-2">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
           <div className="space-y-6">
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm">
+            <div className="bg-theme-surface-1 p-6 rounded-xl shadow-sm">
               <h3 className="text-lg font-semibold mb-2">What types of businesses do you work with?</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-700 dark:text-gray-300">
                 We work with businesses of all sizes across various industries, including technology, healthcare, finance, retail, and education. Our solutions are tailored to meet the specific needs of each client.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm">
+            <div className="bg-theme-surface-1 p-6 rounded-xl shadow-sm">
               <h3 className="text-lg font-semibold mb-2">How long does a typical project take?</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-700 dark:text-gray-300">
                 Project timelines vary depending on scope and complexity. A website might take 4-8 weeks, while data analysis projects can range from 2 weeks for basic analysis to several months for complex implementations.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm">
+            <div className="bg-theme-surface-1 p-6 rounded-xl shadow-sm">
               <h3 className="text-lg font-semibold mb-2">Do you offer ongoing support after project completion?</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-700 dark:text-gray-300">
                 Yes, we offer various maintenance and support packages to ensure your solutions continue to perform optimally. This includes technical support, updates, and regular performance reviews.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm">
+            <div className="bg-theme-surface-1 p-6 rounded-xl shadow-sm">
               <h3 className="text-lg font-semibold mb-2">What makes Landometrix different from other agencies?</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-700 dark:text-gray-300">
                 Our unique strength lies in the integration of data expertise with web development capabilities. This allows us to build web solutions informed by data insights and create data tools with exceptional user experiences.
               </p>
             </div>
