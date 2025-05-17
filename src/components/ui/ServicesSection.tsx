@@ -63,12 +63,12 @@ const ServicesSection = () => {
         {services.map((service, index) => (
           <AnimateOnScroll 
             key={service.id} 
-            animation="fade-in-up" 
+            animation={index % 2 === 0 ? "slide-in-left" : "slide-in-right"}
             delay={index * 100}
             threshold={0.2}
           >
             <div 
-              className="bg-theme-surface-1 rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-100 dark:border-gray-700"
+              className="bg-theme-surface-1 rounded-xl shadow-sm hover-lift p-6 border border-gray-100 dark:border-gray-700"
             >
               <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 text-blue-600 dark:text-blue-400">
                 {service.icon}

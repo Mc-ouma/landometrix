@@ -1,7 +1,10 @@
+'use client';
+
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import ColorPalette from '@/components/ui/ColorPalette';
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 
 export const metadata: Metadata = {
   title: 'About Us | Landometrix',
@@ -88,12 +91,14 @@ const AboutPage = () => {
       {/* Hero section */}
       <section className="bg-theme-gradient-1 py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-light to-accent-light">About Landometrix</h1>
-            <p className="text-xl text-text-secondary">
-              We transform businesses through data insights and exceptional web experiences
-            </p>
-          </div>
+          <AnimateOnScroll animation="fade-in-up">
+            <div className="text-center max-w-3xl mx-auto">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-light to-accent-light">About Landometrix</h1>
+              <p className="text-xl text-text-secondary">
+                We transform businesses through data insights and exceptional web experiences
+              </p>
+            </div>
+          </AnimateOnScroll>
         </div>
       </section>
 

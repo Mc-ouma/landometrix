@@ -211,7 +211,69 @@ html {
   animation: fadeIn 0.5s ease-in forwards;
 }
 
+.bounce {
+  animation-timing-function: cubic-bezier(0.8,0,1,1);
+}
+
+.swing {
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.4);
+}
+
+.stagger > * {
+  opacity: 0;
+  animation: staggerFadeIn 0.5s ease-in forwards;
+}
+
+/* Keyframes for animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+@keyframes swingIn {
+  0% { transform: rotate(-10deg); opacity: 0; }
+  50% { transform: rotate(5deg); }
+  100% { transform: rotate(0); opacity: 1; }
+}
+
+@keyframes staggerFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Apply staggered delays to children */
+.stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Hover animations for cards and buttons */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 15px var(--primary-light);
 }
