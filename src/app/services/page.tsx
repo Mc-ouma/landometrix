@@ -2,16 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import AnimateOnScroll from '@/components/ui/AnimateOnScroll';t';
-
-import Image from 'next/image';
-import Link from 'next/link';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
-
-export const metadata: Metadata = {
-  title: 'Services | Landometrix',
-  description: 'Explore our comprehensive data analysis and web development services designed to transform your business.',
-};
 
 const ServicesPage = () => {
   const services = [
@@ -118,27 +109,28 @@ const ServicesPage = () => {
                 threshold={0.2}
               >
                 <div className="w-full md:w-1/2">
-                <h2 className="text-3xl font-bold mb-4">{service.title}</h2>
-                <p className="text-gray-700 dark:text-gray-300 text-lg mb-6">
-                  {service.description}
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <svg className="w-5 h-5 text-blue-500 mt-1 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/contact"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-md inline-block transition-colors"
-                >
-                  {service.cta}
-                </Link>
-              </div>
+                  <h2 className="text-3xl font-bold mb-4">{service.title}</h2>
+                  <p className="text-gray-700 dark:text-gray-300 text-lg mb-6">
+                    {service.description}
+                  </p>
+                  <ul className="space-y-3 mb-8">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <svg className="w-5 h-5 text-blue-500 mt-1 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href="/contact"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-md inline-block transition-colors"
+                  >
+                    {service.cta}
+                  </Link>
+                </div>
+              </AnimateOnScroll>
             </div>
           ))}
         </div>

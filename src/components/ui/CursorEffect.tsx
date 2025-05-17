@@ -22,44 +22,55 @@ export default function CursorEffect({
   const [trail, setTrail] = useState<Array<{ x: number, y: number }>>([]);
   const [isPointer, setIsPointer] = useState(false);
   const [isTouching, setIsTouching] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    // Don't show custom cursor on touch devices unless explicitly enabled
+    // Skip this effect on touch devices unless explicitly enabled
     if ('ontouchstart' in window && !showOnMobile) {
       return;
     }
 
+    // Initialize cursor with default position
+    if (typeof window !== 'undefined') {
+      setPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+      setIsVisible(true);
+      setIsInitialized(true);
+    }
+
     const updateCursorPosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
+      setIsVisible(true);  // Ensure cursor is visible during movement
       
+      // Update trail positions
       setTrail(prevTrail => {
         const newTrail = [...prevTrail, { x: e.clientX, y: e.clientY }];
-        if (newTrail.length > trailLength) {
-          return newTrail.slice(newTrail.length - trailLength);
-        }
-        return newTrail;
+        return newTrail.length > trailLength 
+          ? newTrail.slice(newTrail.length - trailLength)
+          : newTrail;
       });
 
       // Check if cursor is over a clickable element
       const target = e.target as HTMLElement;
-      const isClickable = target.tagName === 'BUTTON' || 
-                        target.tagName === 'A' || 
-                        target.tagName === 'INPUT' ||
-                        target.tagName === 'SELECT' ||
-                        target.tagName === 'TEXTAREA' ||
-                        target.closest('button') ||
-                        target.closest('a') ||
-                        target.closest('input') ||
-                        target.closest('select') ||
-                        target.closest('textarea');
+      const isClickable = 
+        target.tagName === 'BUTTON' || 
+        target.tagName === 'A' || 
+        target.tagName === 'INPUT' ||
+        target.tagName === 'SELECT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.closest('button') !== null ||
+        target.closest('a') !== null ||
+        target.closest('input') !== null ||
+        target.closest('select') !== null ||
+        target.closest('textarea') !== null;
 
       setIsPointer(isClickable);
     };
 
+    // Event handlers
     const showCursor = () => setIsVisible(true);
     const hideCursor = () => setIsVisible(false);
     
-    // Touch events for mobile when enabled
+    // Mobile touch handlers
     const handleTouchStart = (e: TouchEvent) => {
       if (showOnMobile) {
         setIsTouching(true);
@@ -81,6 +92,7 @@ export default function CursorEffect({
       }
     };
 
+    // Register all event listeners
     document.addEventListener('mousemove', updateCursorPosition);
     document.addEventListener('mouseenter', showCursor);
     document.addEventListener('mouseleave', hideCursor);
@@ -111,7 +123,11 @@ export default function CursorEffect({
     };
   }, [trailLength, showOnMobile, isTouching]);
 
-  if (!isVisible && !isTouching) return null;
+  // Don't render anything if we're on a touch device without mobile support
+  if ('ontouchstart' in window && !showOnMobile) return null;
+  
+  // Don't render until initialized to prevent flashing at (0,0)
+  if (!isInitialized && !isVisible && !isTouching) return null;
 
   return (
     <>
