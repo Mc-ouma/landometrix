@@ -1,10 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 import CursorEffect from '@/components/ui/CursorEffect';
+import CircularAnimation from '@/components/ui/CircularAnimation';
 
 export default function AnimationShowcase() {
+  // Define animation types with proper typing
   const animationTypes = [
     'fade-in-up',
     'fade-in',
@@ -16,7 +19,32 @@ export default function AnimationShowcase() {
     'bounce-in',
     'swing-in',
     'stagger-fade'
-  ];
+  ] as const;
+  
+  // Animation type for TypeScript
+  type AnimationType = typeof animationTypes[number];
+  
+  // CircularAnimation state
+  const [colorScheme, setColorScheme] = useState<'blue' | 'purple' | 'teal' | 'amber'>('blue');
+  const [speed, setSpeed] = useState(1);
+  const [density, setDensity] = useState(1);
+  const [animationSize, setAnimationSize] = useState(600);
+  
+  // Adjust animation size on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setAnimationSize(Math.min(600, window.innerWidth - 64));
+    };
+    
+    // Initial size
+    handleResize();
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="py-16 px-6 md:px-12">
@@ -33,6 +61,145 @@ export default function AnimationShowcase() {
           </p>
         </div>
       </AnimateOnScroll>
+      
+      {/* Circular Animation Section */}
+      <AnimateOnScroll animation="fade-in">
+        <div className="max-w-6xl mx-auto mb-16">
+          <h2 className="text-2xl font-bold mb-8 text-center">Interactive Circular Animation</h2>
+          
+          <div className="bg-theme-surface-1 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="text-center mb-6">
+              <p className="mb-4">
+                Experience our new interactive circular animation with dynamic gradients and particle effects.
+                This animation responds to keyboard controls for an enhanced interactive experience.
+              </p>
+              <div className="flex justify-center mb-4">
+                <div className="bg-theme-surface-2 p-4 rounded-md inline-block">
+                  <h4 className="text-lg font-medium mb-2">Keyboard Controls:</h4>
+                  <ul className="text-sm text-left space-y-1">
+                    <li><kbd className="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">Space</kbd> - Play/Pause animation</li>
+                    <li><kbd className="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">←/→</kbd> - Decrease/Increase speed</li>
+                    <li><kbd className="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">-/+</kbd> - Decrease/Increase particle density</li>
+                    <li><kbd className="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 rounded">1-4</kbd> - Switch between color schemes</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="flex justify-center items-center flex-wrap gap-4 mb-6">
+                <button 
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md"
+                  onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }))}
+                >
+                  Toggle Play/Pause
+                </button>
+                <div className="flex flex-wrap items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <button 
+                      className="bg-theme-surface-2 hover:bg-theme-surface-3 font-medium px-3 py-1 rounded-md"
+                      onClick={() => {
+                        setSpeed(Math.max(0.2, speed - 0.2));
+                        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+                      }}
+                    >
+                      Slower
+                    </button>
+                    <span>Speed</span>
+                    <button 
+                      className="bg-theme-surface-2 hover:bg-theme-surface-3 font-medium px-3 py-1 rounded-md"
+                      onClick={() => {
+                        setSpeed(Math.min(3, speed + 0.2));
+                        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+                      }}
+                    >
+                      Faster
+                    </button>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <button 
+                      className="bg-theme-surface-2 hover:bg-theme-surface-3 font-medium px-3 py-1 rounded-md"
+                      onClick={() => {
+                        setDensity(Math.max(0.2, density - 0.2));
+                        window.dispatchEvent(new KeyboardEvent('keydown', { key: '-' }));
+                      }}
+                    >
+                      Less
+                    </button>
+                    <span>Density</span>
+                    <button 
+                      className="bg-theme-surface-2 hover:bg-theme-surface-3 font-medium px-3 py-1 rounded-md"
+                      onClick={() => {
+                        setDensity(Math.min(3, density + 0.2));
+                        window.dispatchEvent(new KeyboardEvent('keydown', { key: '+' }));
+                      }}
+                    >
+                      More
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex justify-center">
+              <div className="relative w-full max-w-[600px] aspect-square">
+                <CircularAnimation 
+                  width={animationSize} 
+                  height={animationSize} 
+                  colorScheme={colorScheme}
+                  speed={speed}
+                  density={density}
+                />
+              </div>
+            </div>
+            
+            <div className="text-center mt-6">
+              <div className="flex flex-wrap justify-center gap-6 items-center mb-4">
+                <div className="bg-theme-surface-2 px-3 py-1 rounded-md flex items-center gap-2">
+                  <span className="text-sm font-medium">Speed:</span>
+                  <span className="text-sm bg-theme-surface-3 px-2 py-0.5 rounded">{speed.toFixed(1)}x</span>
+                </div>
+                <div className="bg-theme-surface-2 px-3 py-1 rounded-md flex items-center gap-2">
+                  <span className="text-sm font-medium">Density:</span>
+                  <span className="text-sm bg-theme-surface-3 px-2 py-0.5 rounded">{density.toFixed(1)}x</span>
+                </div>
+                <div className="bg-theme-surface-2 px-3 py-1 rounded-md flex items-center gap-2">
+                  <span className="text-sm font-medium">Theme:</span>
+                  <span className="text-sm bg-theme-surface-3 px-2 py-0.5 rounded capitalize">{colorScheme}</span>
+                </div>
+              </div>
+              
+              <p className="mb-3">
+                Try different color schemes:
+              </p>
+              <div className="flex justify-center gap-3 mb-4">
+                <button 
+                  className={`w-8 h-8 rounded-full bg-blue-600 ${colorScheme === 'blue' ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`} 
+                  onClick={() => setColorScheme('blue')}
+                  aria-label="Blue color scheme"
+                ></button>
+                <button 
+                  className={`w-8 h-8 rounded-full bg-purple-600 ${colorScheme === 'purple' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
+                  onClick={() => setColorScheme('purple')}
+                  aria-label="Purple color scheme"
+                ></button>
+                <button 
+                  className={`w-8 h-8 rounded-full bg-teal-500 ${colorScheme === 'teal' ? 'ring-2 ring-offset-2 ring-teal-400' : ''}`}
+                  onClick={() => setColorScheme('teal')}
+                  aria-label="Teal color scheme"
+                ></button>
+                <button 
+                  className={`w-8 h-8 rounded-full bg-amber-500 ${colorScheme === 'amber' ? 'ring-2 ring-offset-2 ring-amber-400' : ''}`}
+                  onClick={() => setColorScheme('amber')}
+                  aria-label="Amber color scheme"
+                ></button>
+              </div>
+              
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Click on the animation and use keyboard shortcuts for the full interactive experience!
+              </p>
+            </div>
+          </div>
+        </div>
+      </AnimateOnScroll>
 
       {/* Animation Types */}
       <div className="max-w-7xl mx-auto mb-16">
@@ -42,7 +209,7 @@ export default function AnimationShowcase() {
           {animationTypes.map((type, index) => (
             <AnimateOnScroll
               key={type}
-              animation={type}
+              animation={type as AnimationType}
               delay={index * 100}
               className="h-full"
             >
