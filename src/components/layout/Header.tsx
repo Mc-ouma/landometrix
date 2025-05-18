@@ -30,9 +30,7 @@ const Header = () => {
           <Link href="/contact" className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium">
             Contact
           </Link>
-          <Link href="/showcase" className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium">
-            Showcase
-          </Link>
+          
           <ThemeClient />
           <Link 
             href="/contact" 
@@ -95,14 +93,7 @@ const Header = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             Contact
-          </Link>
-          <Link 
-            href="/showcase" 
-            className="block text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-light py-2"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Showcase
-          </Link>
+          </Link>          
           <Link 
             href="/contact" 
             className="block bg-primary hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary text-white px-4 py-2 rounded-md w-full text-center mt-3 shadow-sm"

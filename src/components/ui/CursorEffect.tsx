@@ -12,7 +12,7 @@ type CursorEffectProps = {
 
 export default function CursorEffect({ 
   color = 'rgba(37, 99, 235, 0.5)', // Default is a semi-transparent blue
-  size = 40,
+  size = 30,
   trailLength = 8,
   trailColor = 'rgba(59, 130, 246, 0.2)', // Default is a lighter semi-transparent blue
   showOnMobile = false,
