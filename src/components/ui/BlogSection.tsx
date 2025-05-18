@@ -52,7 +52,7 @@ const BlogSection = () => {
         {BLOG_POSTS.map((post, index) => (
           <AnimateOnScroll 
             key={post.id}
-            animation="blur-in"
+            animation="bounce-in"
             delay={index * 200}
             duration={800}
             threshold={0.1}

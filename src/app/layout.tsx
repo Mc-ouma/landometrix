@@ -3,12 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import ScrollToTop from "@/components/ui/ScrollToTop";
-import CookieConsent from "@/components/ui/CookieConsent";
-import Analytics from "@/components/utils/Analytics";
-import AccessibilityEnhancer from "@/components/utils/AccessibilityEnhancer";
 import ClientThemeWrapper from "@/components/utils/ClientThemeWrapper";
-import CursorEffect from "@/components/ui/CursorEffect";
+import DynamicComponents from "@/components/utils/DynamicComponents";
 import { defaultMetadata, generateOrganizationSchema, generateServiceSchema } from "@/lib/metadata";
 
 const geistSans = Geist({
@@ -60,16 +56,15 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ClientThemeWrapper>
-          <Analytics />
-          <AccessibilityEnhancer />
           <Header />
           <main className="flex-grow pt-24">
             {children}
           </main>
           <Footer />
-          <ScrollToTop />
-          <CookieConsent />
-          <CursorEffect color="rgba(37, 99, 235, 0.5)" trailColor="rgba(59, 130, 246, 0.2)" />
+          <DynamicComponents 
+            cursorEffectColor="rgba(37, 99, 235, 0.5)" 
+            cursorEffectTrailColor="rgba(59, 130, 246, 0.2)" 
+          />
         </ClientThemeWrapper>
       </body>
     </html>

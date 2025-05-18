@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect, ReactNode, useCallback, useRef, memo } from 'react';
 
 interface TooltipProps {
   children: ReactNode;
@@ -18,29 +18,39 @@ const Tooltip = ({
   const [isVisible, setIsVisible] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
   const [mounted, setMounted] = useState(false);
-  let timer: NodeJS.Timeout;
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   
   // Make sure we're in the browser before any DOM manipulation
   useEffect(() => {
     setMounted(true);
+    
+    // Clean up any lingering timers
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, []);
 
-  const showTip = () => {
+  // Memoize event handlers to prevent unnecessary re-renders
+  const showTip = useCallback(() => {
     if (!mounted) return;
     
-    timer = setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setShouldRender(true);
       setTimeout(() => setIsVisible(true), 20);
     }, delay);
-  };
+  }, [mounted, delay]);
 
-  const hideTip = () => {
+  const hideTip = useCallback(() => {
     if (!mounted) return;
     
-    clearTimeout(timer);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
     setIsVisible(false);
     setTimeout(() => setShouldRender(false), 200);
-  };
+  }, [mounted]);
   
   const positionClasses = {
     top: 'bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 mb-1',
@@ -83,4 +93,5 @@ const Tooltip = ({
   );
 };
 
-export default Tooltip;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(Tooltip);

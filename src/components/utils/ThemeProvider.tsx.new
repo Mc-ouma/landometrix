@@ -41,7 +41,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return <ThemeProviderInternal>{children}</ThemeProviderInternal>;
 }
 
-// Custom hook to use the theme
+// Custom hook to use the theme - now simplified since context always exists
 export function useTheme() {
   return useContext(ThemeContext);
 }

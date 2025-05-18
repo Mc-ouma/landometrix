@@ -46,7 +46,7 @@ const CONTACT_INFO = [
 			</svg>
 		),
 		title: 'Phone',
-		items: ['+1 (555) 123-4567', '+1 (555) 765-4321'],
+		items: ['+254 725 492920', '+254 700 123456'],
 	},
 	{
 		id: 'location',
@@ -73,7 +73,7 @@ const CONTACT_INFO = [
 			</svg>
 		),
 		title: 'Location',
-		items: ['123 Data Drive', 'San Francisco, CA 94105'],
+		items: ['123 Some St', 'Tech City, CA 94105'],
 	},
 	{
 		id: 'hours',
