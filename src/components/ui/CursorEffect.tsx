@@ -25,8 +25,11 @@ export default function CursorEffect({
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
+    // Check if we're in a browser environment
+    const isBrowser = typeof window !== 'undefined';
+    
     // Skip this effect on touch devices unless explicitly enabled
-    if ('ontouchstart' in window && !showOnMobile) {
+    if (isBrowser && 'ontouchstart' in window && !showOnMobile) {
       return;
     }
 
@@ -123,8 +126,11 @@ export default function CursorEffect({
     };
   }, [trailLength, showOnMobile, isTouching]);
 
+  // Check if we're in a browser environment before accessing window properties
+  const isBrowser = typeof window !== 'undefined';
+  
   // Don't render anything if we're on a touch device without mobile support
-  if ('ontouchstart' in window && !showOnMobile) return null;
+  if (isBrowser && 'ontouchstart' in window && !showOnMobile) return null;
   
   // Don't render until initialized to prevent flashing at (0,0)
   if (!isInitialized && !isVisible && !isTouching) return null;
