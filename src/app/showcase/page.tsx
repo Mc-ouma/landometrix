@@ -29,6 +29,20 @@ export default function AnimationShowcase() {
   const [speed, setSpeed] = useState(1);
   const [density, setDensity] = useState(1);
   const [animationSize, setAnimationSize] = useState(600);
+  const [showDataLabels, setShowDataLabels] = useState(true);
+  
+  // Sample business intelligence data for visualization
+  const landometrixData = [
+    { label: 'User Growth', value: 87, category: 'Growth' },
+    { label: 'Customer Retention', value: 92, category: 'Customers' },
+    { label: 'Revenue Increase', value: 76, category: 'Financial' },
+    { label: 'Platform Uptime', value: 99, category: 'Technical' },
+    { label: 'Support Response', value: 94, category: 'Service' },
+    { label: 'Feature Adoption', value: 81, category: 'Product' },
+    { label: 'Mobile Usage', value: 68, category: 'Usage' },
+    { label: 'Desktop Usage', value: 73, category: 'Usage' },
+    { label: 'Cost Efficiency', value: 85, category: 'Financial' },
+  ];
   
   // Adjust animation size on window resize
   useEffect(() => {
@@ -91,6 +105,12 @@ export default function AnimationShowcase() {
                 >
                   Toggle Play/Pause
                 </button>
+                <button 
+                  className={`${showDataLabels ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 hover:bg-gray-700'} text-white font-medium px-4 py-2 rounded-md`}
+                  onClick={() => setShowDataLabels(!showDataLabels)}
+                >
+                  {showDataLabels ? 'Hide Data Labels' : 'Show Data Labels'}
+                </button>
                 <div className="flex flex-wrap items-center gap-4">
                   <div className="flex items-center gap-2">
                     <button 
@@ -140,13 +160,17 @@ export default function AnimationShowcase() {
             </div>
             
             <div className="flex justify-center">
-              <div className="relative w-full max-w-[600px] aspect-square">
+              <div className="relative w-full max-w-[800px]">
                 <CircularAnimation 
                   width={animationSize} 
                   height={animationSize} 
                   colorScheme={colorScheme}
                   speed={speed}
                   density={density}
+                  data={landometrixData}
+                  showLabels={showDataLabels}
+                  title="Landometrix Platform Metrics"
+                  subtitle="Visualized performance indicators across departments"
                 />
               </div>
             </div>
