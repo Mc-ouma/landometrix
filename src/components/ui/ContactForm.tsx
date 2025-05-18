@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -15,12 +15,14 @@ const ContactForm = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  // Memoized change handler to prevent recreation on each render
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Memoized submit handler to prevent recreation on each render
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -47,7 +49,7 @@ const ContactForm = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -179,4 +181,5 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(ContactForm);

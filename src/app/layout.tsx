@@ -35,6 +35,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Generate these once to improve performance
   const organizationSchema = generateOrganizationSchema();
   const serviceSchema = generateServiceSchema();
 

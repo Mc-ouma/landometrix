@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 
 const CookieConsent = () => {
   const [showBanner, setShowBanner] = useState(false);
@@ -18,15 +18,16 @@ const CookieConsent = () => {
     }
   }, []);
 
-  const handleAccept = () => {
+  // Memoize event handlers to prevent recreation on each render
+  const handleAccept = useCallback(() => {
     localStorage.setItem('cookieConsent', 'accepted');
     setShowBanner(false);
-  };
+  }, []);
 
-  const handleDecline = () => {
+  const handleDecline = useCallback(() => {
     localStorage.setItem('cookieConsent', 'declined');
     setShowBanner(false);
-  };
+  }, []);
 
   if (!showBanner) {
     return null;
@@ -63,4 +64,5 @@ const CookieConsent = () => {
   );
 };
 
-export default CookieConsent;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(CookieConsent);

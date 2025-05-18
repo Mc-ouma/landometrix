@@ -1,9 +1,10 @@
 'use client';
 
+import { memo } from 'react';
 import AnimateOnScroll from './AnimateOnScroll';
 
-const TestimonialsSection = () => {
-  const testimonials = [
+// Testimonial data moved outside component to prevent recreation on each render
+const TESTIMONIALS = [
     {
       id: 1,
       quote: "Landometrix transformed our business by turning our complex data into actionable insights. Their expertise has been invaluable.",
@@ -27,6 +28,8 @@ const TestimonialsSection = () => {
     },
   ];
 
+// Component declaration
+const TestimonialsSection = () => {
   return (
     <section className="bg-theme-gradient-2 py-16 md:py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
@@ -40,7 +43,7 @@ const TestimonialsSection = () => {
         </AnimateOnScroll>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+          {TESTIMONIALS.map((testimonial, index) => (
             <AnimateOnScroll
               key={testimonial.id}
               animation="zoom-in"
@@ -87,4 +90,5 @@ const TestimonialsSection = () => {
   );
 };
 
-export default TestimonialsSection;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(TestimonialsSection);

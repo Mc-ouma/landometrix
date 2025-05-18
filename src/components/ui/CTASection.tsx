@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import Link from 'next/link';
 import AnimateOnScroll from './AnimateOnScroll';
 
@@ -46,4 +47,5 @@ const CTASection = () => {
   );
 };
 
-export default CTASection;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(CTASection);

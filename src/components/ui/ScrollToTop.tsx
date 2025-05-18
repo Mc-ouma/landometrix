@@ -1,30 +1,32 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.scrollY > 500) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
+  // Memoize the visibility toggle function to prevent recreation on each render
+  const toggleVisibility = useCallback(() => {
+    if (window.scrollY > 500) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, []);
 
+  useEffect(() => {
     window.addEventListener('scroll', toggleVisibility);
 
     return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
+  }, [toggleVisibility]);
 
-  const scrollToTop = () => {
+  // Memoize the scroll to top function to prevent recreation on each render
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  };
+  }, []);
 
   return (
     <>
@@ -54,4 +56,5 @@ const ScrollToTop = () => {
   );
 };
 
-export default ScrollToTop;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(ScrollToTop);

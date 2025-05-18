@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo, useCallback } from 'react';
 
 type AnimateOnScrollProps = {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ type AnimateOnScrollProps = {
   duration?: number; // animation duration in ms
 };
 
-export default function AnimateOnScroll({ 
+function AnimateOnScroll({ 
   children, 
   animation, 
   delay = 0,
@@ -48,7 +48,8 @@ export default function AnimateOnScroll({
     };
   }, [delay, threshold]);
 
-  const getAnimationClass = () => {
+  // Memoize the animation class generation to prevent recalculation
+  const getAnimationClass = useCallback(() => {
     const durationClass = `duration-${duration}`;
     
     switch (animation) {
@@ -75,7 +76,7 @@ export default function AnimateOnScroll({
       default:
         return `opacity-0 transition-opacity ${durationClass} ease-out`;
     }
-  };
+  }, [animation, duration]);
 
   return (
     <div 
@@ -86,3 +87,6 @@ export default function AnimateOnScroll({
     </div>
   );
 }
+
+// Export memoized component to prevent unnecessary re-renders
+export default memo(AnimateOnScroll);

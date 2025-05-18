@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 
 interface ThemeContextType {
   isDarkMode: boolean;
@@ -20,9 +20,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.style.colorScheme = 'dark';
   }, []);
 
-  const value = {
+  // Memoize context value to prevent unnecessary re-renders
+  const value = useMemo(() => ({
     isDarkMode: true
-  };
+  }), []);
 
   // Avoid hydration mismatch by not rendering anything until mounted
   if (!mounted) {

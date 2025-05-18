@@ -82,7 +82,6 @@ const VALUES = [
     },
   ];
 
-// Added proper function component declaration
 const AboutPageClient = () => {
   return (
     <div>

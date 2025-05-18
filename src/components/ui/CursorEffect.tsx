@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, memo } from 'react';
 
 type CursorEffectProps = {
   color?: string;
@@ -10,13 +10,13 @@ type CursorEffectProps = {
   showOnMobile?: boolean;
 };
 
-export default function CursorEffect({ 
+const CursorEffect = ({ 
   color = 'rgba(37, 99, 235, 0.5)', // Default is a semi-transparent blue
   size = 30,
   trailLength = 8,
   trailColor = 'rgba(59, 130, 246, 0.2)', // Default is a lighter semi-transparent blue
   showOnMobile = false,
-}: CursorEffectProps) {
+}: CursorEffectProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [trail, setTrail] = useState<Array<{ x: number, y: number }>>([]);
@@ -24,6 +24,62 @@ export default function CursorEffect({
   const [isTouching, setIsTouching] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
 
+  // Memoize event handler functions to prevent recreation on each render
+  const updateCursorPosition = useCallback((e: MouseEvent) => {
+    setPosition({ x: e.clientX, y: e.clientY });
+    setIsVisible(true);  // Ensure cursor is visible during movement
+    
+    // Update trail positions
+    setTrail(prevTrail => {
+      const newTrail = [...prevTrail, { x: e.clientX, y: e.clientY }];
+      return newTrail.length > trailLength 
+        ? newTrail.slice(newTrail.length - trailLength)
+        : newTrail;
+    });
+
+    // Check if cursor is over a clickable element
+    const target = e.target as HTMLElement;
+    const isClickable = 
+      target.tagName === 'BUTTON' || 
+      target.tagName === 'A' || 
+      target.tagName === 'INPUT' ||
+      target.tagName === 'SELECT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.closest('button') !== null ||
+      target.closest('a') !== null ||
+      target.closest('input') !== null ||
+      target.closest('select') !== null ||
+      target.closest('textarea') !== null;
+
+    setIsPointer(isClickable);
+  }, [trailLength]);
+
+  // Event handlers
+  const showCursor = useCallback(() => setIsVisible(true), []);
+  const hideCursor = useCallback(() => setIsVisible(false), []);
+  
+  // Mobile touch handlers
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    if (showOnMobile) {
+      setIsTouching(true);
+      const touch = e.touches[0];
+      setPosition({ x: touch.clientX, y: touch.clientY });
+    }
+  }, [showOnMobile]);
+
+  const handleTouchMove = useCallback((e: TouchEvent) => {
+    if (showOnMobile && isTouching) {
+      const touch = e.touches[0];
+      setPosition({ x: touch.clientX, y: touch.clientY });
+    }
+  }, [showOnMobile, isTouching]);
+
+  const handleTouchEnd = useCallback(() => {
+    if (showOnMobile) {
+      setIsTouching(false);
+    }
+  }, [showOnMobile]);
+  
   useEffect(() => {
     // Check if we're in a browser environment
     const isBrowser = typeof window !== 'undefined';
@@ -39,61 +95,6 @@ export default function CursorEffect({
       setIsVisible(true);
       setIsInitialized(true);
     }
-
-    const updateCursorPosition = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);  // Ensure cursor is visible during movement
-      
-      // Update trail positions
-      setTrail(prevTrail => {
-        const newTrail = [...prevTrail, { x: e.clientX, y: e.clientY }];
-        return newTrail.length > trailLength 
-          ? newTrail.slice(newTrail.length - trailLength)
-          : newTrail;
-      });
-
-      // Check if cursor is over a clickable element
-      const target = e.target as HTMLElement;
-      const isClickable = 
-        target.tagName === 'BUTTON' || 
-        target.tagName === 'A' || 
-        target.tagName === 'INPUT' ||
-        target.tagName === 'SELECT' ||
-        target.tagName === 'TEXTAREA' ||
-        target.closest('button') !== null ||
-        target.closest('a') !== null ||
-        target.closest('input') !== null ||
-        target.closest('select') !== null ||
-        target.closest('textarea') !== null;
-
-      setIsPointer(isClickable);
-    };
-
-    // Event handlers
-    const showCursor = () => setIsVisible(true);
-    const hideCursor = () => setIsVisible(false);
-    
-    // Mobile touch handlers
-    const handleTouchStart = (e: TouchEvent) => {
-      if (showOnMobile) {
-        setIsTouching(true);
-        const touch = e.touches[0];
-        setPosition({ x: touch.clientX, y: touch.clientY });
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (showOnMobile && isTouching) {
-        const touch = e.touches[0];
-        setPosition({ x: touch.clientX, y: touch.clientY });
-      }
-    };
-
-    const handleTouchEnd = () => {
-      if (showOnMobile) {
-        setIsTouching(false);
-      }
-    };
 
     // Register all event listeners
     document.addEventListener('mousemove', updateCursorPosition);
@@ -124,7 +125,16 @@ export default function CursorEffect({
       // Restore default cursor
       document.documentElement.style.cursor = '';
     };
-  }, [trailLength, showOnMobile, isTouching]);
+  }, [
+    trailLength,
+    showOnMobile,
+    updateCursorPosition,
+    showCursor,
+    hideCursor,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd
+  ]);
 
   // Check if we're in a browser environment before accessing window properties
   const isBrowser = typeof window !== 'undefined';
@@ -171,4 +181,7 @@ export default function CursorEffect({
       />
     </>
   );
-}
+};
+
+// Export memoized component to prevent unnecessary re-renders
+export default memo(CursorEffect);

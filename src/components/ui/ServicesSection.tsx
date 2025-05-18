@@ -1,10 +1,11 @@
 'use client';
 
+import { memo } from 'react';
 import Link from 'next/link';
 import AnimateOnScroll from './AnimateOnScroll';
 
-const ServicesSection = () => {
-  const services = [
+// Services data moved outside component to prevent recreation on each render
+const SERVICES = [
     {
       id: 'data-analysis',
       title: 'Data Analysis',
@@ -48,6 +49,8 @@ const ServicesSection = () => {
     },
   ];
 
+// Main component declaration
+const ServicesSection = () => {
   return (
     <section className="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
       <AnimateOnScroll animation="fade-in-up">
@@ -60,7 +63,7 @@ const ServicesSection = () => {
       </AnimateOnScroll>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {services.map((service, index) => (
+        {SERVICES.map((service, index) => (
           <AnimateOnScroll 
             key={service.id} 
             animation={index % 2 === 0 ? "slide-in-left" : "slide-in-right"}
@@ -108,4 +111,5 @@ const ServicesSection = () => {
   );
 };
 
-export default ServicesSection;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(ServicesSection);

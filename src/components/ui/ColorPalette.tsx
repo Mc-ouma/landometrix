@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import { useTheme } from '@/components/utils/ThemeProvider';
 
-// Component to display a color swatch
-const ColorSwatch = ({ 
+// Component to display a color swatch (memoized for performance)
+const ColorSwatch = memo(({ 
   name, 
   variable, 
   textClass = 'text-black dark:text-white'
@@ -23,10 +23,12 @@ const ColorSwatch = ({
       <span className="text-xs text-gray-500 dark:text-gray-400">{variable}</span>
     </div>
   );
-};
+});
 
-// Color category section
-const ColorSection = ({ title, children }: { title: string; children: React.ReactNode }) => {
+ColorSwatch.displayName = 'ColorSwatch';
+
+// Color category section (memoized for performance)
+const ColorSection = memo(({ title, children }: { title: string; children: React.ReactNode }) => {
   return (
     <div className="mb-8">
       <h3 className="text-lg font-semibold mb-3">{title}</h3>
@@ -35,18 +37,20 @@ const ColorSection = ({ title, children }: { title: string; children: React.Reac
       </div>
     </div>
   );
-};
+});
+
+ColorSection.displayName = 'ColorSection';
 
 // Main color palette component
-export default function ColorPalette() {
-  const { theme } = useTheme();
+const ColorPalette = () => {
+  const { isDarkMode } = useTheme();
 
   return (
     <div className="p-4 bg-surface-2 dark:bg-surface-2 rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Color Palette</h2>
         <span className="text-sm font-medium py-1 px-3 rounded-full bg-gray-200 dark:bg-gray-700">
-          {theme === 'system' ? 'System Theme' : theme === 'dark' ? 'Dark Theme' : 'Light Theme'}
+          {isDarkMode ? 'Dark Theme' : 'Light Theme'}
         </span>
       </div>
 
@@ -102,4 +106,7 @@ export default function ColorPalette() {
       </ColorSection>
     </div>
   );
-}
+};
+
+// Export memoized component for better performance
+export default memo(ColorPalette);

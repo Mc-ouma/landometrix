@@ -1,10 +1,11 @@
 'use client';
 
+import { memo } from 'react';
 import Link from 'next/link';
 import AnimateOnScroll from './AnimateOnScroll';
 
-const BlogSection = () => {
-  const blogPosts = [
+// Blog posts data moved outside component to prevent recreation on each render
+const BLOG_POSTS = [
     {
       id: 1,
       title: 'How Data Analysis Can Transform Your Business Decision-Making',
@@ -34,6 +35,8 @@ const BlogSection = () => {
     },
   ];
 
+// Component declaration
+const BlogSection = () => {
   return (
     <section className="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto">
       <AnimateOnScroll animation="fade-in-up">
@@ -46,7 +49,7 @@ const BlogSection = () => {
       </AnimateOnScroll>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {blogPosts.map((post, index) => (
+        {BLOG_POSTS.map((post, index) => (
           <AnimateOnScroll 
             key={post.id}
             animation="blur-in"
@@ -119,4 +122,5 @@ const BlogSection = () => {
   );
 };
 
-export default BlogSection;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(BlogSection);

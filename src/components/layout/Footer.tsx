@@ -1,5 +1,10 @@
+import { memo } from 'react';
 import Link from 'next/link';
 
+// Calculate year once outside component
+const CURRENT_YEAR = new Date().getFullYear();
+
+// Footer component with memoization for performance
 const Footer = () => {
   return (
     <footer className="bg-theme-surface-2 border-t border-gray-200 dark:border-gray-800">
@@ -95,7 +100,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <p className="text-sm text-gray-700 dark:text-gray-300 text-center">
-            © {new Date().getFullYear()} Landometrix. All rights reserved.
+            © {CURRENT_YEAR} Landometrix. All rights reserved.
           </p>
         </div>
       </div>
@@ -103,4 +108,5 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+// Export memoized component to prevent unnecessary re-renders
+export default memo(Footer);

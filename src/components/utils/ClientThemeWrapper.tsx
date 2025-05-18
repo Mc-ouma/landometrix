@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import { ThemeProvider } from './ThemeProvider';
 
-export default function ClientThemeWrapper({ 
+// Memoized wrapper component to prevent unnecessary re-renders
+function ClientThemeWrapper({ 
   children 
 }: { 
   children: React.ReactNode 
@@ -19,3 +20,6 @@ export default function ClientThemeWrapper({
     </ThemeProvider>
   );
 }
+
+// Export memoized component to prevent unnecessary re-renders
+export default memo(ClientThemeWrapper);
