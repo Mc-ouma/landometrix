@@ -16,6 +16,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ className = '' 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [stage, setStage] = useState<number>(STAGE_DATA_COLLECTION);
   const requestRef = useRef<number | undefined>(undefined);
+  // Using 'any' type for now to avoid build errors, but should be replaced with proper typing later
   const particlesRef = useRef<any[]>([]);
   const stageTimeRef = useRef<number>(0);
   const previousTimeRef = useRef<number>(0);

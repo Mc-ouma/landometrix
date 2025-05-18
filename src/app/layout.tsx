@@ -61,10 +61,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <DynamicComponents 
-            cursorEffectColor="rgba(37, 99, 235, 0.5)" 
-            cursorEffectTrailColor="rgba(59, 130, 246, 0.2)" 
-          />
+          <DynamicComponents />
         </ClientThemeWrapper>
       </body>
     </html>
