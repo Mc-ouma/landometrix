@@ -8,7 +8,11 @@
     "analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
-    "perf": "next dev --profile"
+    "perf": "next dev --profile",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:contact": "playwright test e2e/contact-form.spec.ts",
+    "test:report": "playwright show-report"
   },
   "dependencies": {
     "framer-motion": "^12.12.1",
@@ -19,13 +23,17 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.52.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "compression-webpack-plugin": "^11.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "terser-webpack-plugin": "^5.3.14",
+    "typescript": "^5",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }
