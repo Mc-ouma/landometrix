@@ -131,84 +131,45 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
-  // Memoized toggle handler with forced update
+  // Memoized toggle handler
   const toggleMenu = useCallback(() => {
-    setIsMenuOpen(prev => {
-      const newState = !prev;
-      // Set body overflow based on the new state, not the current state
-      setTimeout(() => {
-        document.body.style.overflow = newState ? 'hidden' : '';
-      }, 10);
-      return newState;
-    });
+    setIsMenuOpen(prev => !prev);
   }, []);
   
   // Memoized close handler
-  const closeMenu = useCallback(() => {
-    // Use setTimeout to avoid race conditions with other effects
-    setTimeout(() => {
-      setIsMenuOpen(false);
-      // Don't manually set body styles here, let the isMenuOpen effect handle it
-    }, 10);
-  }, []);
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   
   // Effect to close menu when route changes
   useEffect(() => {
-    // Only respond to pathname changes, not isMenuOpen changes
-    const handleRouteChange = () => {
-      if (isMenuOpen) {
-        setIsMenuOpen(false);
-        // Let the isMenuOpen effect handle the body styles
-      }
-    };
-    handleRouteChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]); // Only depend on pathname changes
+    if (isMenuOpen) setIsMenuOpen(false);
+  }, [pathname, isMenuOpen]);
 
   // Add body class to prevent scrolling when mobile menu is open
   useEffect(() => {
     if (typeof document === 'undefined') return;
     
-    // Add a small delay to ensure React has fully processed state changes
-    const timer = setTimeout(() => {
-      if (isMenuOpen) {
-        document.body.classList.add('overflow-hidden');
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.classList.remove('overflow-hidden');
-        document.body.style.overflow = '';
-      }
-    }, 10);
-    
-    return () => {
-      clearTimeout(timer);
-      // No need to reset here, as it could cause flicker
-      // The cleanup will happen when component unmounts or when effect reruns
-    };
+    if (isMenuOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => document.body.classList.remove('overflow-hidden');
   }, [isMenuOpen]);
   
   // Handle click outside to close menu
   useEffect(() => {
     if (!isMenuOpen || !menuRef.current) return;
     
-    // Add a small delay before enabling the click outside handler
-    // to prevent immediate closing after opening
-    const timer = setTimeout(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (menuRef.current && !menuRef.current.contains(event.target as Node) && 
-            // Make sure we're not clicking the toggle button itself
-            !(event.target as Element).closest('[aria-controls="mobile-menu"]')) {
-          setIsMenuOpen(false);
-        }
-      };
-      
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, 100); // Small delay to prevent accidental closing
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
     
-    return () => clearTimeout(timer);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [isMenuOpen]);
   
   // Handle escape key to close menu
@@ -372,11 +333,7 @@ const Header = () => {
             className={`text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400/50 relative ${
               isMenuOpen ? 'bg-white/20 backdrop-blur-sm' : 'bg-slate-800/40 hover:bg-slate-700/50 backdrop-blur-sm'
             } cursor-pointer`}
-            onClick={(e) => {
-              // Prevent any event bubbling that might cause issues
-              e.stopPropagation();
-              toggleMenu();
-            }}
+            onClick={toggleMenu}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
@@ -404,17 +361,17 @@ const Header = () => {
               id="mobile-menu"
               className="fixed inset-0 bg-gradient-to-b from-slate-900 to-slate-800 z-[90] md:hidden flex flex-col justify-center items-center overflow-hidden"
               key="mobile-menu"
-              initial={{ opacity: 0, clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" }}
+              initial={{ opacity: 0, clipPath: prefersReducedMotion ? "none" : "circle(0% at calc(100% - 2.5rem) 2.5rem)" }}
               animate={{ 
                 opacity: 1, 
-                clipPath: "circle(150% at calc(100% - 2.5rem) 2.5rem)" 
+                clipPath: prefersReducedMotion ? "none" : "circle(150% at calc(100% - 2.5rem) 2.5rem)" 
               }}
               exit={{ 
                 opacity: 0, 
-                clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" 
+                clipPath: prefersReducedMotion ? "none" : "circle(0% at calc(100% - 2.5rem) 2.5rem)" 
               }}
               transition={{ 
-                duration: 0.5,
+                duration: prefersReducedMotion ? 0.2 : 0.5,
                 ease: [0.22, 1, 0.36, 1]
               }}
               role="dialog"

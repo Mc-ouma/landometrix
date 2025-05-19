@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { useState, useCallback, memo, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { createPortal } from 'react-dom';
+import { motion } from 'framer-motion';
+import MobileMenu from './MobileMenu';
 
 // Define navigation links outside component to prevent recreation on each render
 const NAV_LINKS = [
@@ -18,7 +18,7 @@ const NAV_LINKS = [
 const DESKTOP_LINK_CLASS = "relative text-gray-200 hover:text-white font-medium px-4 py-2 transition-all duration-300 overflow-hidden group flex items-center";
 const MOBILE_LINK_CLASS = "block text-gray-200 hover:text-white py-4 px-6 text-lg font-medium transition-all duration-300 relative";
 
-// Enhanced animated icons for menu toggle with improved accessibility
+// Enhanced animated icons for menu toggle
 const CloseIcon = memo(() => (
   <motion.svg 
     xmlns="http://www.w3.org/2000/svg" 
@@ -26,7 +26,6 @@ const CloseIcon = memo(() => (
     fill="none" 
     viewBox="0 0 24 24" 
     stroke="currentColor"
-    aria-hidden="true" // Hide from screen readers since we have aria-label on the button
     initial={{ rotate: -90, opacity: 0 }}
     animate={{ rotate: 0, opacity: 1 }}
     exit={{ rotate: 90, opacity: 0 }}
@@ -44,7 +43,6 @@ const MenuIcon = memo(() => (
     fill="none" 
     viewBox="0 0 24 24" 
     stroke="currentColor"
-    aria-hidden="true" // Hide from screen readers since we have aria-label on the button
     initial={{ opacity: 0.5 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 0.2 }}
@@ -74,14 +72,12 @@ const GetStartedButton = memo(({ isMobile = false, onClick = undefined }: { isMo
         overflow-hidden group
       `}
       onClick={onClick}
-      aria-label="Get started with Landometrix"
     >
       <span className="relative z-10 flex items-center justify-center">
         <span>Get Started</span>
         <motion.svg 
           xmlns="http://www.w3.org/2000/svg" 
-          className="h-4 w-4 ml-2 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-300"
-          aria-hidden="true"
+          className="h-4 w-4 ml-2 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-300" 
           fill="none" 
           viewBox="0 0 24 24" 
           stroke="currentColor"
@@ -102,10 +98,6 @@ const Header = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-  
-  // Use framer-motion's useReducedMotion hook to detect user motion preferences
-  const prefersReducedMotion = useReducedMotion();
   
   // Track scroll position for header transparency effect and scroll progress
   useEffect(() => {
@@ -119,112 +111,39 @@ const Header = () => {
       
       // Calculate scroll progress percentage
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight <= 0) return;
-      
       const progress = Math.min(Math.max((window.scrollY / totalHeight) * 100, 0), 100);
       setScrollProgress(progress);
     };
     
-    window.addEventListener('scroll', handleScroll, { passive: true }); // Mark as passive for better performance
+    window.addEventListener('scroll', handleScroll);
     handleScroll(); // Check on initial load
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
-  // Memoized toggle handler with forced update
+  // Memoized toggle handler
   const toggleMenu = useCallback(() => {
-    setIsMenuOpen(prev => {
-      const newState = !prev;
-      // Set body overflow based on the new state, not the current state
-      setTimeout(() => {
-        document.body.style.overflow = newState ? 'hidden' : '';
-      }, 10);
-      return newState;
-    });
-  }, []);
+    setIsMenuOpen(prev => !prev);
+    // For debug purposes
+    console.log("Menu toggled:", !isMenuOpen);
+  }, [isMenuOpen]);
   
   // Memoized close handler
-  const closeMenu = useCallback(() => {
-    // Use setTimeout to avoid race conditions with other effects
-    setTimeout(() => {
-      setIsMenuOpen(false);
-      // Don't manually set body styles here, let the isMenuOpen effect handle it
-    }, 10);
-  }, []);
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   
   // Effect to close menu when route changes
   useEffect(() => {
-    // Only respond to pathname changes, not isMenuOpen changes
-    const handleRouteChange = () => {
-      if (isMenuOpen) {
-        setIsMenuOpen(false);
-        // Let the isMenuOpen effect handle the body styles
-      }
-    };
-    handleRouteChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]); // Only depend on pathname changes
+    if (isMenuOpen) setIsMenuOpen(false);
+  }, [pathname, isMenuOpen]);
 
   // Add body class to prevent scrolling when mobile menu is open
   useEffect(() => {
-    if (typeof document === 'undefined') return;
-    
-    // Add a small delay to ensure React has fully processed state changes
-    const timer = setTimeout(() => {
-      if (isMenuOpen) {
-        document.body.classList.add('overflow-hidden');
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.classList.remove('overflow-hidden');
-        document.body.style.overflow = '';
-      }
-    }, 10);
-    
-    return () => {
-      clearTimeout(timer);
-      // No need to reset here, as it could cause flicker
-      // The cleanup will happen when component unmounts or when effect reruns
-    };
-  }, [isMenuOpen]);
-  
-  // Handle click outside to close menu
-  useEffect(() => {
-    if (!isMenuOpen || !menuRef.current) return;
-    
-    // Add a small delay before enabling the click outside handler
-    // to prevent immediate closing after opening
-    const timer = setTimeout(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (menuRef.current && !menuRef.current.contains(event.target as Node) && 
-            // Make sure we're not clicking the toggle button itself
-            !(event.target as Element).closest('[aria-controls="mobile-menu"]')) {
-          setIsMenuOpen(false);
-        }
-      };
-      
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, 100); // Small delay to prevent accidental closing
-    
-    return () => clearTimeout(timer);
-  }, [isMenuOpen]);
-  
-  // Handle escape key to close menu
-  useEffect(() => {
-    if (!isMenuOpen) return;
-    
-    const handleEscKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsMenuOpen(false);
-      }
-    };
-    
-    document.addEventListener('keydown', handleEscKey);
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-    };
+    if (isMenuOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => document.body.classList.remove('overflow-hidden');
   }, [isMenuOpen]);
 
   return (
@@ -238,33 +157,26 @@ const Header = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ 
-        type: prefersReducedMotion ? "tween" : "spring", 
+        type: "spring", 
         stiffness: 100, 
         damping: 20,
         delay: 0.2
       }}
-      role="banner"
     >
       {/* Scroll Progress Bar */}
-      <div 
-        className="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-blue-500 via-teal-400 to-blue-500 z-50 transition-all duration-150"
-        style={{ width: `${scrollProgress}%` }}
-        role="progressbar"
-        aria-valuenow={scrollProgress}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label="Page scroll progress"
+      <div className="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-blue-500 via-teal-400 to-blue-500 z-50 transition-all duration-150"
+        style={{ width: `${scrollProgress}%` }} 
       />
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2 z-20 no-underline" aria-label="Landometrix - Home">
+        <Link href="/" className="group flex items-center gap-2 z-20 no-underline">
           <div className="relative">
             {/* Animated background glow effect */}
             <motion.div 
               className="absolute -inset-2 rounded-lg bg-gradient-to-r from-blue-400/20 via-teal-300/20 to-blue-400/20 opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300"
-              animate={!prefersReducedMotion ? {
+              animate={{
                 background: ['linear-gradient(90deg, rgba(59,130,246,0.2) 0%, rgba(45,212,191,0.2) 50%, rgba(59,130,246,0.2) 100%)'],
                 scale: [1, 1.05, 1]
-              } : undefined}
+              }}
               transition={{ 
                 background: { duration: 2, repeat: Infinity, ease: "linear" },
                 scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }
@@ -274,16 +186,16 @@ const Header = () => {
             {/* Logo text with enhanced animations */}
             <motion.div 
               className="flex items-center"
-              whileHover={{ scale: prefersReducedMotion ? 1 : 1.03 }}
+              whileHover={{ scale: 1.03 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <span className="relative text-2xl font-bold z-10">
                 {/* Logo text with animated gradient */}
                 <motion.span 
                   className="bg-gradient-to-r from-blue-400 to-teal-300 bg-clip-text text-transparent"
-                  animate={!prefersReducedMotion ? {
+                  animate={{
                     backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-                  } : undefined}
+                  }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                   style={{ backgroundSize: '200% 100%' }}
                 >
@@ -317,8 +229,6 @@ const Header = () => {
           }}
           initial="hidden"
           animate="visible"
-          role="navigation"
-          aria-label="Main navigation"
         >
           {NAV_LINKS.map(({ href, label }) => {
             const isActive = pathname === href;
@@ -333,7 +243,6 @@ const Header = () => {
                 <Link 
                   href={href} 
                   className={`${DESKTOP_LINK_CLASS} ${isActive ? 'text-white font-semibold' : ''}`}
-                  aria-current={isActive ? 'page' : undefined}
                 >
                   <span className="relative z-10">{label}</span>
                   
@@ -342,7 +251,7 @@ const Header = () => {
                     <motion.span 
                       className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-400 to-teal-300 w-full rounded-full shadow-[0_0_8px_rgba(45,212,191,0.5)]"
                       layoutId="navIndicator"
-                      transition={{ type: prefersReducedMotion ? "tween" : "spring", stiffness: 300, damping: 30 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   ) : (
                     <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-blue-400/0 via-teal-300/40 to-blue-400/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
@@ -372,16 +281,11 @@ const Header = () => {
             className={`text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400/50 relative ${
               isMenuOpen ? 'bg-white/20 backdrop-blur-sm' : 'bg-slate-800/40 hover:bg-slate-700/50 backdrop-blur-sm'
             } cursor-pointer`}
-            onClick={(e) => {
-              // Prevent any event bubbling that might cause issues
-              e.stopPropagation();
-              toggleMenu();
-            }}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
             whileTap={{ scale: 0.9 }}
-            transition={{ type: prefersReducedMotion ? "tween" : "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <div className="relative">
               <motion.div 
@@ -396,12 +300,10 @@ const Header = () => {
       </div>
 
       {/* Full-screen Mobile Navigation with enhanced animation */}
-      {typeof window !== 'undefined' && createPortal(
-        <AnimatePresence mode="wait">
+      {typeof window !== 'undefined' ? createPortal(
+        <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              ref={menuRef}
-              id="mobile-menu"
               className="fixed inset-0 bg-gradient-to-b from-slate-900 to-slate-800 z-[90] md:hidden flex flex-col justify-center items-center overflow-hidden"
               key="mobile-menu"
               initial={{ opacity: 0, clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" }}
@@ -417,48 +319,58 @@ const Header = () => {
                 duration: 0.5,
                 ease: [0.22, 1, 0.36, 1]
               }}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Site navigation"
             >
               {/* Decorative Elements */}
               <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-blue-500/5 blur-3xl" />
               <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-teal-500/5 blur-3xl" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-32 bg-gradient-to-r from-blue-500/5 via-transparent to-teal-500/5 blur-3xl -rotate-45" />
 
-              <div 
+              <motion.nav 
                 className="flex flex-col items-center justify-center space-y-8 pt-20 pb-10 w-full max-w-sm z-[91] relative"
-                role="menu"
+                initial="closed"
+                animate="open"
+                variants={{
+                  open: {
+                    transition: {
+                      staggerChildren: 0.07,
+                      delayChildren: 0.2
+                    }
+                  },
+                  closed: {
+                    transition: {
+                      staggerChildren: 0.05,
+                      staggerDirection: -1
+                    }
+                  }
+                }}
               >
                 {NAV_LINKS.map(({ href, label }, index) => {
                   const isActive = pathname === href;
                   return (
                     <motion.div
                       key={href}
-                      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 50 }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0,
-                        transition: {
-                          delay: index * (prefersReducedMotion ? 0.01 : 0.07),
-                          duration: 0.3
-                        }
-                      }}
-                      exit={{
-                        opacity: 0,
-                        y: prefersReducedMotion ? 0 : -20,
-                        transition: {
-                          delay: (NAV_LINKS.length - index) * 0.05
+                      variants={{
+                        open: {
+                          y: 0,
+                          opacity: 1,
+                          transition: {
+                            y: { stiffness: 1000, velocity: -100 }
+                          }
+                        },
+                        closed: {
+                          y: 50,
+                          opacity: 0,
+                          transition: {
+                            y: { stiffness: 1000 }
+                          }
                         }
                       }}
                       className="w-full text-center"
-                      role="menuitem"
                     >
                       <Link 
                         href={href} 
                         className={`${MOBILE_LINK_CLASS} ${isActive ? 'text-white relative' : ''} inline-flex items-center justify-center w-full`}
                         onClick={closeMenu}
-                        aria-current={isActive ? 'page' : undefined}
                       >
                         {label}
                         {isActive && (
@@ -473,25 +385,28 @@ const Header = () => {
                 })}
                 
                 <motion.div
-                  initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 50 }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0,
-                    transition: {
-                      delay: NAV_LINKS.length * 0.07 + 0.1,
-                      duration: 0.3
+                  variants={{
+                    open: {
+                      y: 0,
+                      opacity: 1,
+                      transition: {
+                        y: { stiffness: 1000, velocity: -100 },
+                        delay: 0.1
+                      }
+                    },
+                    closed: {
+                      y: 50,
+                      opacity: 0,
+                      transition: {
+                        y: { stiffness: 1000 }
+                      }
                     }
                   }}
-                  exit={{
-                    opacity: 0,
-                    y: prefersReducedMotion ? 0 : -20
-                  }}
                   className="w-full px-6"
-                  role="menuitem"
                 >
                   <GetStartedButton isMobile={true} onClick={closeMenu} />
                 </motion.div>
-              </div>
+              </motion.nav>
             </motion.div>
           )}
         </AnimatePresence>,
