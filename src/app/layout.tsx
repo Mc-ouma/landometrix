@@ -84,7 +84,7 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
-          <div className="mt-8"> {/* Added spacing container */}
+          <div className="mt-12 pt-4 relative z-10"> {/* Enhanced spacing container with z-index */}
             <Footer />
           </div>
           <DynamicComponents />

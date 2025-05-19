@@ -7,7 +7,7 @@ const CURRENT_YEAR = new Date().getFullYear();
 // Footer component with memoization for performance
 const Footer = () => {
   return (
-    <footer className="bg-theme-surface-2 border-t border-gray-200 dark:border-gray-800 mt-4">
+    <footer className="bg-gray-100 dark:bg-gray-900 border-t-2 border-gray-300 dark:border-gray-700 mt-8 relative z-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}

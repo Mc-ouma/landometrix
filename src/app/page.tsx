@@ -7,12 +7,14 @@ import CTASection from "@/components/ui/CTASection";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div>
       <HeroSection />
       <ServicesSection />
       <TestimonialsSection />
       <BlogSection />
       <CTASection />
+      {/* Spacer element to ensure footer visibility */}
+      <div className="h-24"></div>
     </div>
   );
 }
