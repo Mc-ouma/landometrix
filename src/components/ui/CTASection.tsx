@@ -6,7 +6,7 @@ import AnimateOnScroll from './AnimateOnScroll';
 
 const CTASection = () => {
   return (
-    <section className="py-16 md:py-24 px-6 md:px-12">
+    <section className="py-16 md:py-24 px-6 md:px-12 mb-12">
       <AnimateOnScroll animation="zoom-in" duration={900}>
         <div className="max-w-5xl mx-auto bg-theme-gradient-primary rounded-2xl shadow-xl overflow-hidden hover-glow">
           <div className="relative px-6 py-10 md:p-12 text-center md:text-left">
