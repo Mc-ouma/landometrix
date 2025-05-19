@@ -1,10 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useCallback, memo, useEffect, useRef } from 'react';
+import { useState, useCallback, memo, useEffect, useRef, lazy, Suspense } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { createPortal } from 'react-dom';
+
+// Dynamically import MobileMenu component to reduce initial bundle size
+const MobileMenu = lazy(() => import('./MobileMenu'));
 
 // Define navigation links outside component to prevent recreation on each render
 const NAV_LINKS = [
@@ -16,7 +19,6 @@ const NAV_LINKS = [
 
 // CSS constants with enhanced styling
 const DESKTOP_LINK_CLASS = "relative text-gray-200 hover:text-white font-medium px-4 py-2 transition-all duration-300 overflow-hidden group flex items-center";
-const MOBILE_LINK_CLASS = "block text-gray-200 hover:text-white py-4 px-6 text-lg font-medium transition-all duration-300 relative";
 
 // Enhanced animated icons for menu toggle with improved accessibility
 const CloseIcon = memo(() => (
@@ -55,7 +57,7 @@ const MenuIcon = memo(() => (
 MenuIcon.displayName = 'MenuIcon';
 
 // Enhanced GetStarted button with gradient, shimmer effect and hover effects
-const GetStartedButton = memo(({ isMobile = false, onClick = undefined }: { isMobile?: boolean, onClick?: () => void }) => (
+export const GetStartedButton = memo(({ isMobile = false, onClick = undefined }: { isMobile?: boolean, onClick?: () => void }) => (
   <motion.div 
     whileHover={{ scale: 1.03 }}
     whileTap={{ scale: 0.97 }}
@@ -109,13 +111,26 @@ const Header = () => {
   
   // Track scroll position for header transparency effect and scroll progress
   useEffect(() => {
-    const handleScroll = () => {
-      // Handle header background transparency
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+    // Throttle function to limit execution frequency
+    const throttle = <T extends (...args: unknown[]) => void>(func: T, limit: number) => {
+      let inThrottle = false;
+      return function(this: unknown, ...args: Parameters<T>) {
+        if (!inThrottle) {
+          func.apply(this, args);
+          inThrottle = true;
+          setTimeout(() => {
+            inThrottle = false;
+          }, limit);
+        }
+      };
+    };
+
+    const handleScroll = throttle(() => {
+      // Handle header background transparency (use state setter callback to avoid unnecessary renders)
+      setIsScrolled(prev => {
+        const shouldBeScrolled = window.scrollY > 20;
+        return prev === shouldBeScrolled ? prev : shouldBeScrolled;
+      });
       
       // Calculate scroll progress percentage
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -123,7 +138,7 @@ const Header = () => {
       
       const progress = Math.min(Math.max((window.scrollY / totalHeight) * 100, 0), 100);
       setScrollProgress(progress);
-    };
+    }, 100); // Throttle to execute at most once every 100ms
     
     window.addEventListener('scroll', handleScroll, { passive: true }); // Mark as passive for better performance
     handleScroll(); // Check on initial load
@@ -271,29 +286,39 @@ const Header = () => {
               }}
             />
             
-            {/* Logo text with enhanced animations */}
-            <motion.div 
-              className="flex items-center"
-              whileHover={{ scale: prefersReducedMotion ? 1 : 1.03 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <span className="relative text-2xl font-bold z-10">
-                {/* Logo text with animated gradient */}
-                <motion.span 
-                  className="bg-gradient-to-r from-blue-400 to-teal-300 bg-clip-text text-transparent"
-                  animate={!prefersReducedMotion ? {
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-                  } : undefined}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  style={{ backgroundSize: '200% 100%' }}
-                >
-                  Landometrix
-                </motion.span>
-                
-                {/* Subtle shimmer effect overlay */}
-                <span className="absolute inset-0 w-full bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%] animate-shimmer" />
-              </span>
-            </motion.div>
+            {/* Logo text with enhanced animations - conditionally rendered based on motion preferences */}
+            {prefersReducedMotion ? (
+              <div className="flex items-center">
+                <span className="relative text-2xl font-bold z-10">
+                  <span className="bg-gradient-to-r from-blue-400 to-teal-300 bg-clip-text text-transparent">
+                    Landometrix
+                  </span>
+                </span>
+              </div>
+            ) : (
+              <motion.div 
+                className="flex items-center"
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <span className="relative text-2xl font-bold z-10">
+                  {/* Logo text with animated gradient */}
+                  <motion.span 
+                    className="bg-gradient-to-r from-blue-400 to-teal-300 bg-clip-text text-transparent"
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
+                    }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ backgroundSize: '200% 100%' }}
+                  >
+                    Landometrix
+                  </motion.span>
+                  
+                  {/* Subtle shimmer effect overlay */}
+                  <span className="absolute inset-0 w-full bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%] animate-shimmer" />
+                </span>
+              </motion.div>
+            )}
             
             {/* Decorative geometric shapes */}
             <div className="absolute -top-1.5 -left-3 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-70 transition-opacity duration-300 delay-100" />
@@ -395,106 +420,16 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Full-screen Mobile Navigation with enhanced animation */}
-      {typeof window !== 'undefined' && createPortal(
-        <AnimatePresence mode="wait">
-          {isMenuOpen && (
-            <motion.div
-              ref={menuRef}
-              id="mobile-menu"
-              className="fixed inset-0 bg-gradient-to-b from-slate-900 to-slate-800 z-[90] md:hidden flex flex-col justify-center items-center overflow-hidden"
-              key="mobile-menu"
-              initial={{ opacity: 0, clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" }}
-              animate={{ 
-                opacity: 1, 
-                clipPath: "circle(150% at calc(100% - 2.5rem) 2.5rem)" 
-              }}
-              exit={{ 
-                opacity: 0, 
-                clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" 
-              }}
-              transition={{ 
-                duration: 0.5,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Site navigation"
-            >
-              {/* Decorative Elements */}
-              <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-blue-500/5 blur-3xl" />
-              <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-teal-500/5 blur-3xl" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-32 bg-gradient-to-r from-blue-500/5 via-transparent to-teal-500/5 blur-3xl -rotate-45" />
-
-              <div 
-                className="flex flex-col items-center justify-center space-y-8 pt-20 pb-10 w-full max-w-sm z-[91] relative"
-                role="menu"
-              >
-                {NAV_LINKS.map(({ href, label }, index) => {
-                  const isActive = pathname === href;
-                  return (
-                    <motion.div
-                      key={href}
-                      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 50 }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0,
-                        transition: {
-                          delay: index * (prefersReducedMotion ? 0.01 : 0.07),
-                          duration: 0.3
-                        }
-                      }}
-                      exit={{
-                        opacity: 0,
-                        y: prefersReducedMotion ? 0 : -20,
-                        transition: {
-                          delay: (NAV_LINKS.length - index) * 0.05
-                        }
-                      }}
-                      className="w-full text-center"
-                      role="menuitem"
-                    >
-                      <Link 
-                        href={href} 
-                        className={`${MOBILE_LINK_CLASS} ${isActive ? 'text-white relative' : ''} inline-flex items-center justify-center w-full`}
-                        onClick={closeMenu}
-                        aria-current={isActive ? 'page' : undefined}
-                      >
-                        {label}
-                        {isActive && (
-                          <motion.span 
-                            className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-blue-400 to-teal-300 w-12 rounded-full shadow-[0_0_8px_rgba(45,212,191,0.5)]"
-                            layoutId="mobileNavIndicator"
-                          />
-                        )}
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-                
-                <motion.div
-                  initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 50 }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0,
-                    transition: {
-                      delay: NAV_LINKS.length * 0.07 + 0.1,
-                      duration: 0.3
-                    }
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: prefersReducedMotion ? 0 : -20
-                  }}
-                  className="w-full px-6"
-                  role="menuitem"
-                >
-                  <GetStartedButton isMobile={true} onClick={closeMenu} />
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>,
+      {/* Full-screen Mobile Navigation with enhanced animation - lazily loaded */}
+      {typeof window !== 'undefined' && isMenuOpen && createPortal(
+        <Suspense fallback={<div className="fixed inset-0 bg-slate-900/80 z-[90]" />}>
+          <MobileMenu 
+            ref={menuRef}
+            isMenuOpen={isMenuOpen}
+            closeMenu={closeMenu}
+            prefersReducedMotion={!!prefersReducedMotion}
+          />
+        </Suspense>,
         document.body
       )}
     </motion.header>
