@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <!-- Brand Blue Background -->
+  <rect width="1200" height="630" fill="#1D4ED8"/>
+  
+  <!-- Subtle Grid Accent -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.08"/>
+    </pattern>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0B1F4B" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  
+  <!-- Monogram Logo Container -->
+  <g transform="translate(100, 140)">
+    <!-- White LM Monogram -->
+    <svg width="144" height="112" viewBox="0 0 72 56" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter">
+      <path d="M8 6V50H24"/>
+      <path d="M34 50V6L50 30L66 6V50"/>
+    </svg>
+  </g>
+  
+  <!-- Wordmark -->
+  <text x="270" y="222" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="76" font-weight="800" fill="#FFFFFF" letter-spacing="-1">
+    Landometrix
+  </text>
+  
+  <!-- Pill Badge -->
+  <g transform="translate(100, 310)">
+    <rect width="280" height="44" rx="22" fill="#0B1F4B" fill-opacity="0.6" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="140" y="28" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#38BDF8" text-anchor="middle" letter-spacing="1">
+      DATA &amp; WEB SOLUTIONS
+    </text>
+  </g>
+  
+  <!-- Headline -->
+  <text x="100" y="420" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="52" font-weight="700" fill="#FFFFFF" letter-spacing="-0.5">
+    Turn messy data into decisive action.
+  </text>
+  
+  <!-- Subheadline -->
+  <text x="100" y="480" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="26" font-weight="400" fill="#EFF6FF" fill-opacity="0.9">
+    Data analytics, visualization, and custom web products built in Kenya for global impact.
+  </text>
+  
+  <!-- Website URL footer -->
+  <text x="100" y="550" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="600" fill="#38BDF8">
+    landometrix.com
+  </text>
+</svg>
