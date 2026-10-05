@@ -21,14 +21,14 @@ export default function CTASection({
 }: CTASectionProps) {
   return (
     <section
-      className={`py-16 sm:py-20 bg-gradient-to-br from-[#0B1F4B] via-[#1D4ED8] to-[#0B1F4B] text-white relative overflow-hidden ${className}`}
+      className={`py-20 sm:py-24 bg-inverse text-on-inverse relative overflow-hidden ${className}`}
     >
-      {/* Subtle background geometric grid accent */}
-      <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      {/* Signature faint data-grid dot texture */}
+      <div className="absolute inset-0 bg-dots pointer-events-none opacity-30" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         {/* Monogram watermark icon */}
-        <div className="inline-flex justify-center items-center w-10 h-12 mb-6 text-sky-300 opacity-90">
+        <div className="inline-flex justify-center items-center w-10 h-12 mb-6 text-sky-accent opacity-90">
           <svg
             viewBox="0 0 219 268"
             fill="none"
@@ -48,7 +48,7 @@ export default function CTASection({
           </svg>
         </div>
 
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight max-w-3xl mx-auto mb-6 text-white font-[family-name:var(--font-heading)]">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight max-w-3xl mx-auto mb-6 text-on-inverse font-[family-name:var(--font-heading)]">
           {title}
         </h2>
 
@@ -59,11 +59,11 @@ export default function CTASection({
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href={primaryCtaHref}
-            className="tap-target w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-white text-blue-900 hover:bg-blue-50 font-bold text-base transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 focus-visible:ring-4 focus-visible:ring-white/40"
+            className="tap-target w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white text-deep-navy hover:bg-slate-100 font-bold text-base transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 focus-visible:ring-4 focus-visible:ring-white/40"
           >
             {primaryCtaText}
             <svg
-              className="ml-2 w-5 h-5 text-blue-900"
+              className="ml-2 w-5 h-5 text-deep-navy"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -81,7 +81,7 @@ export default function CTASection({
             href={secondaryCtaHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="tap-target w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-lg border border-sky-300/40 text-sky-200 hover:text-white hover:bg-white/10 font-semibold text-base transition-colors"
+            className="tap-target w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl border border-line-strong text-on-inverse hover:bg-white/10 font-semibold text-base transition-colors"
           >
             {secondaryCtaText}
           </a>

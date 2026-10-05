@@ -40,11 +40,14 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
   return (
     <article className="flex flex-col w-full">
       {/* Header */}
-      <section className="pt-16 pb-16 bg-gradient-to-b from-[#EFF6FF] via-[#F8FAFC] to-[#F8FAFC] dark:from-[#0d255a] dark:via-[#0B1F4B] dark:to-[#0B1F4B] border-b border-slate-200/80 dark:border-slate-800">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-16 pb-16 bg-page border-b border-line overflow-hidden">
+        {/* Signature data-grid dot texture */}
+        <div className="absolute inset-0 bg-dots pointer-events-none opacity-40" />
+
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Link
             href="/insights"
-            className="tap-target inline-flex items-center text-xs font-semibold text-blue-600 dark:text-sky-400 hover:text-blue-800 dark:hover:text-sky-300 mb-6 font-mono"
+            className="tap-target inline-flex items-center text-xs font-semibold text-brand hover:underline mb-6 font-mono"
           >
             ← Back to all articles
           </Link>
@@ -53,30 +56,30 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-slate-800 border border-blue-200/70 dark:border-slate-700 text-blue-800 dark:text-sky-300 font-semibold"
+                className="px-2.5 py-0.5 rounded-full bg-subtle border border-line-highlight text-brand font-semibold"
               >
                 {tag}
               </span>
             ))}
-            <span className="text-slate-400">•</span>
-            <span className="text-slate-500">{post.publishedDate}</span>
-            <span className="text-slate-400">•</span>
-            <span className="text-slate-500">{post.readTime}</span>
+            <span className="text-fg-muted">•</span>
+            <span className="text-fg-muted">{post.publishedDate}</span>
+            <span className="text-fg-muted">•</span>
+            <span className="text-fg-muted">{post.readTime}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0B1F4B] dark:text-white tracking-tight mb-6 leading-tight font-[family-name:var(--font-space-grotesk)]">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-heading tracking-tight mb-6 leading-tight font-[family-name:var(--font-space-grotesk)]">
             {post.title}
           </h1>
 
-          <div className="flex items-center space-x-3 pt-2 text-xs text-slate-600 dark:text-slate-300">
-            <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold font-mono shadow-sm">
+          <div className="flex items-center space-x-3 pt-2 text-xs text-fg-secondary">
+            <div className="w-9 h-9 rounded-full bg-primary-blue text-white flex items-center justify-center font-bold font-mono shadow-sm">
               LM
             </div>
             <div>
-              <div className="font-semibold text-[#0B1F4B] dark:text-white">
+              <div className="font-semibold text-heading">
                 {post.author.name}
               </div>
-              <div className="text-slate-500 dark:text-slate-400 text-[11px]">
+              <div className="text-fg-muted text-[11px]">
                 {post.author.title}
               </div>
             </div>
@@ -87,18 +90,18 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
       {/* Reading Body */}
       <section className="py-16 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Intro Excerpt Callout */}
-        <div className="p-6 rounded-2xl bg-[#EFF6FF]/70 dark:bg-slate-900/60 border border-blue-100 dark:border-slate-800 shadow-sm mb-10">
-          <p className="text-lg sm:text-xl text-slate-800 dark:text-slate-200 font-medium leading-relaxed">
+        <div className="card p-6 bg-subtle border border-line-highlight shadow-sm mb-10">
+          <p className="text-lg sm:text-xl text-fg font-medium leading-relaxed">
             {post.excerpt}
           </p>
         </div>
 
         {/* Content Sections */}
-        <div className="space-y-10 text-slate-700 dark:text-slate-300 leading-relaxed text-base sm:text-lg">
+        <div className="space-y-10 text-fg-secondary leading-relaxed text-base sm:text-lg">
           {post.content.map((section, idx) => (
             <div key={idx} className="space-y-4">
               {section.sectionHeading && (
-                <h2 className="text-2xl font-bold text-[#0B1F4B] dark:text-white pt-4 font-[family-name:var(--font-space-grotesk)]">
+                <h2 className="text-2xl font-bold text-heading pt-4 font-[family-name:var(--font-space-grotesk)]">
                   {section.sectionHeading}
                 </h2>
               )}
@@ -112,15 +115,15 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
         </div>
 
         {/* Author Bio Box */}
-        <div className="mt-16 p-6 rounded-2xl bg-white dark:bg-[#0F172A] border border-slate-200/90 dark:border-slate-800 shadow-sm ring-1 ring-slate-900/5 flex items-center space-x-4">
-          <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold font-mono text-base flex-shrink-0 shadow-sm">
+        <div className="mt-16 card p-6 flex items-center space-x-4 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-primary-blue text-white flex items-center justify-center font-bold font-mono text-base flex-shrink-0 shadow-sm">
             LM
           </div>
           <div>
-            <div className="font-bold text-[#0B1F4B] dark:text-white text-sm">
+            <div className="font-bold text-heading text-sm">
               Published by {post.author.name}
             </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <div className="text-xs text-fg-muted mt-0.5">
               Part of Landometrix IT Solutions engineering dispatches from Nairobi, Kenya.
             </div>
           </div>

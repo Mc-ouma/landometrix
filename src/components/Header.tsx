@@ -35,15 +35,13 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-200 backdrop-blur-md ${
-        scrolled
-          ? "bg-white/95 dark:bg-[#0B1F4B]/95 shadow-[0_4px_20px_-4px_rgba(11,31,75,0.06)] dark:shadow-none border-b border-slate-200 dark:border-slate-800"
-          : "bg-white/90 dark:bg-[#0B1F4B]/90 border-b border-slate-200/70 dark:border-slate-800/80"
+      className={`sticky top-0 z-50 transition-all duration-200 backdrop-blur-md bg-[var(--header-bg)] border-b border-[var(--header-border)] ${
+        scrolled ? "shadow-sm" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Left: Brand Logo & Wordmark Lockup */}
-        <div className="flex items-center text-[#0B1F4B] dark:text-white">
+        <div className="flex items-center text-heading">
           <Logo size="md" />
         </div>
 
@@ -63,8 +61,8 @@ export default function Header() {
                 href={link.href}
                 className={`tap-target inline-flex items-center px-3.5 py-2 rounded-lg text-sm transition-all ${
                   isActive
-                    ? "bg-blue-50 text-blue-700 dark:bg-slate-800 dark:text-sky-300 font-semibold border border-blue-200/60 dark:border-slate-700 shadow-2xs"
-                    : "text-slate-700 hover:text-blue-700 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/60 font-medium"
+                    ? "bg-subtle text-brand font-semibold border border-line-highlight"
+                    : "text-fg-secondary hover:text-heading hover:bg-subtle/60 font-medium"
                 }`}
               >
                 {link.label}
@@ -78,7 +76,7 @@ export default function Header() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="tap-target inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm transition-all shadow-sm hover:shadow hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-blue-600"
+            className="btn-primary text-sm"
           >
             Book a Free Consultation
           </Link>
@@ -90,7 +88,7 @@ export default function Header() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             type="button"
-            className="tap-target p-2.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600"
+            className="tap-target p-2.5 rounded-lg text-heading hover:bg-subtle transition-colors"
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation menu"
           >
@@ -131,7 +129,7 @@ export default function Header() {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0B1F4B]/95 backdrop-blur-md px-4 pt-2 pb-6 space-y-2">
+        <div className="md:hidden border-b border-line bg-[var(--header-bg)] backdrop-blur-md px-4 pt-2 pb-6 space-y-2">
           {NAV_LINKS.map((link) => {
             const isActive =
               link.href === "/"
@@ -143,8 +141,8 @@ export default function Header() {
                 href={link.href}
                 className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
                   isActive
-                    ? "bg-blue-50 text-blue-600 dark:bg-slate-800 dark:text-sky-400 font-semibold"
-                    : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    ? "bg-subtle text-brand font-semibold"
+                    : "text-fg-secondary hover:bg-subtle hover:text-heading"
                 }`}
               >
                 {link.label}
@@ -154,7 +152,7 @@ export default function Header() {
           <div className="pt-3">
             <Link
               href="/contact"
-              className="block w-full text-center py-3 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-base transition-colors"
+              className="btn-primary w-full text-center text-base"
             >
               Book a Free Consultation
             </Link>

@@ -42,7 +42,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       type="button"
-      className="tap-target w-10 h-10 rounded-lg flex items-center justify-center text-[#0B1F4B] dark:text-slate-300 bg-white/60 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus-visible:ring-2 focus-visible:ring-blue-600"
+      className="tap-target w-10 h-10 rounded-lg flex items-center justify-center text-heading bg-surface border border-line hover:bg-subtle transition-colors"
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
       title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
