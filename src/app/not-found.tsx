@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 
 export default function NotFound() {
   return (
-    <div className="min-h-[75vh] flex flex-col items-center justify-center px-4 py-20 text-center">
+    <div className="min-h-[75vh] flex flex-col items-center justify-center px-4 py-20 text-center bg-gradient-to-b from-[#EFF6FF]/60 via-[#F8FAFC] to-[#F8FAFC] dark:from-slate-900/40 dark:via-transparent dark:to-transparent">
       <div className="mb-6">
         <Logo iconOnly size="lg" className="text-blue-600 dark:text-sky-400" />
       </div>
@@ -12,7 +12,7 @@ export default function NotFound() {
         HTTP 404 • Null Pointer Exception
       </div>
 
-      <h1 className="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4 font-[family-name:var(--font-space-grotesk)]">
+      <h1 className="text-4xl sm:text-6xl font-extrabold text-[#0B1F4B] dark:text-white tracking-tight mb-4 font-[family-name:var(--font-space-grotesk)]">
         Data point not found in dataset
       </h1>
 
@@ -32,13 +32,13 @@ export default function NotFound() {
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <Link
           href="/"
-          className="tap-target inline-flex items-center justify-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors shadow-sm"
+          className="tap-target inline-flex items-center justify-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
         >
           Return to Clean Data (Home)
         </Link>
         <Link
           href="/services"
-          className="tap-target inline-flex items-center justify-center px-6 py-3 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold text-sm transition-colors"
+          className="tap-target inline-flex items-center justify-center px-6 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold text-sm transition-all shadow-sm"
         >
           Browse Services
         </Link>

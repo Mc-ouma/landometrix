@@ -37,19 +37,19 @@ export default function Header() {
     <header
       className={`sticky top-0 z-50 transition-all duration-200 backdrop-blur-md ${
         scrolled
-          ? "bg-white/95 dark:bg-[#0B1F4B]/95 shadow-sm border-b border-slate-200/80 dark:border-slate-800"
-          : "bg-white/80 dark:bg-[#0B1F4B]/80 border-b border-transparent"
+          ? "bg-white/95 dark:bg-[#0B1F4B]/95 shadow-[0_4px_20px_-4px_rgba(11,31,75,0.06)] dark:shadow-none border-b border-slate-200 dark:border-slate-800"
+          : "bg-white/90 dark:bg-[#0B1F4B]/90 border-b border-slate-200/70 dark:border-slate-800/80"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Left: Brand Logo & Wordmark Lockup */}
-        <div className="flex items-center">
+        <div className="flex items-center text-[#0B1F4B] dark:text-white">
           <Logo size="md" />
         </div>
 
         {/* Center / Desktop Navigation */}
         <nav
-          className="hidden md:flex items-center space-x-1 lg:space-x-2"
+          className="hidden md:flex items-center space-x-1 lg:space-x-1.5"
           aria-label="Main Navigation"
         >
           {NAV_LINKS.map((link) => {
@@ -61,10 +61,10 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`tap-target inline-flex items-center px-3.5 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`tap-target inline-flex items-center px-3.5 py-2 rounded-lg text-sm transition-all ${
                   isActive
-                    ? "text-blue-600 dark:text-sky-400 font-semibold"
-                    : "text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
+                    ? "bg-blue-50 text-blue-700 dark:bg-slate-800 dark:text-sky-300 font-semibold border border-blue-200/60 dark:border-slate-700 shadow-2xs"
+                    : "text-slate-700 hover:text-blue-700 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/60 font-medium"
                 }`}
               >
                 {link.label}

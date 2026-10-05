@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand Core Palette */
+  /* Brand Core Palette (prompt.md specifications) */
   --primary-blue: #1D4ED8;
   --primary-blue-hover: #1E40AF;
   --deep-navy: #0B1F4B;
@@ -23,16 +23,20 @@
   --slate-50: #F8FAFC;
   --white: #FFFFFF;
 
-  /* Semantic Theme Mappings (Light Mode) */
-  --bg-page: #FFFFFF;
+  /* Semantic Theme Mappings (LIGHT MODE - Polished & Branded) */
+  --bg-page: #F8FAFC;
   --bg-surface: #FFFFFF;
   --bg-surface-elevated: #FFFFFF;
   --bg-subtle: #EFF6FF;
   --bg-card: #FFFFFF;
+  
   --border-subtle: #E2E8F0;
   --border-medium: #CBD5E1;
+  --border-highlight: #BFDBFE;
   --border-focus: #1D4ED8;
   
+  /* Headings in Light Mode use Deep Navy (#0B1F4B) */
+  --text-heading: #0B1F4B;
   --text-primary: #0F172A;
   --text-secondary: #475569;
   --text-muted: #64748B;
@@ -40,28 +44,42 @@
   --text-brand: #1D4ED8;
   --text-accent: #0284C7;
 
+  /* Shadows in Light Mode with subtle Navy tint */
+  --shadow-sm: 0 1px 3px rgba(11, 31, 75, 0.05);
+  --shadow-md: 0 4px 16px -2px rgba(11, 31, 75, 0.08);
+  --shadow-lg: 0 12px 32px -4px rgba(11, 31, 75, 0.12);
+  --shadow-glow: 0 0 25px rgba(29, 78, 216, 0.15);
+
   /* Header / Nav */
-  --header-bg: rgba(255, 255, 255, 0.9);
-  --header-border: rgba(226, 232, 240, 0.8);
+  --header-bg: rgba(255, 255, 255, 0.88);
+  --header-border: rgba(226, 232, 240, 0.85);
 }
 
 .dark {
-  /* Semantic Theme Mappings (Dark Mode) */
+  /* Semantic Theme Mappings (DARK MODE) */
   --bg-page: #0B1F4B;
   --bg-surface: #0F172A;
   --bg-surface-elevated: #162444;
   --bg-subtle: #0d255a;
   --bg-card: #0F172A;
+  
   --border-subtle: #1E293B;
   --border-medium: #334155;
+  --border-highlight: #1E3A8A;
   --border-focus: #38BDF8;
 
+  --text-heading: #F8FAFC;
   --text-primary: #F8FAFC;
   --text-secondary: #CBD5E1;
   --text-muted: #94A3B8;
   --text-on-primary: #FFFFFF;
   --text-brand: #60A5FA;
   --text-accent: #38BDF8;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 25px rgba(56, 189, 248, 0.2);
 
   --header-bg: rgba(11, 31, 75, 0.9);
   --header-border: rgba(30, 41, 59, 0.8);
@@ -84,22 +102,33 @@ body {
   background-color: var(--bg-page);
   color: var(--text-primary);
   font-family: var(--font-body);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
   min-height: 100vh;
 }
 
+/* Headings adopt deep navy in light mode and white in dark mode */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  color: var(--text-heading);
   letter-spacing: -0.025em;
 }
 
-/* Accessibility: Touch tap target utility */
+/* Card lift hover effects */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Touch tap target utility (minimum 44x44px for accessibility) */
 .tap-target {
   min-height: 44px;
   min-width: 44px;
 }
 
-/* Focus styles for keyboard navigation (WCAG 2.1 AA) */
+/* Accessible focus visible rings */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -109,7 +138,7 @@ select:focus-visible {
   outline-offset: 2px;
 }
 
-/* Respect user prefers-reduced-motion */
+/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;

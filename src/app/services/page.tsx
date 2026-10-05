@@ -13,15 +13,15 @@ export default function ServicesPage() {
   return (
     <div className="flex flex-col w-full">
       {/* Hero Header */}
-      <section className="pt-16 pb-20 bg-gradient-to-b from-[#EFF6FF] via-white to-white dark:from-[#0d255a] dark:via-[#0B1F4B] dark:to-[#0B1F4B] border-b border-slate-100 dark:border-slate-800">
+      <section className="pt-16 pb-20 bg-gradient-to-b from-[#EFF6FF] via-[#F8FAFC] to-white dark:from-[#0d255a] dark:via-[#0B1F4B] dark:to-[#0B1F4B] border-b border-slate-200/80 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 text-blue-700 dark:text-sky-300 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-blue-200 dark:border-slate-700 text-blue-700 dark:text-sky-300 text-xs font-semibold uppercase tracking-wider mb-4 font-mono shadow-2xs">
             Clear Deliverables • Fixed Sprints • Measurable ROI
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-6 font-[family-name:var(--font-space-grotesk)]">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-[#0B1F4B] dark:text-white tracking-tight mb-6 font-[family-name:var(--font-space-grotesk)]">
             Services engineered to turn data into business momentum
           </h1>
-          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
             Whether you need to untangle disparate operational records, build a
             blazing-fast executive dashboard, or launch a custom web portal, we
             deliver with speed, precision, and zero bloated retainers.
@@ -30,18 +30,18 @@ export default function ServicesPage() {
       </section>
 
       {/* Services In-Depth Sections */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-20">
         {SERVICES_DATA.map((srv, index) => (
           <section
             key={srv.id}
             id={srv.id}
-            className="scroll-mt-28 p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0F172A] shadow-sm"
+            className="scroll-mt-28 p-8 sm:p-12 rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-[#0F172A] shadow-[0_8px_30px_-6px_rgba(11,31,75,0.06)] dark:shadow-sm"
           >
             <div className="flex flex-col lg:flex-row gap-12 items-start justify-between">
               {/* Left Column: Overview, Target Audience, and Tools */}
               <div className="lg:w-7/12 space-y-6">
                 <div className="inline-flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-sky-400 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-[#EFF6FF] dark:bg-blue-900/40 text-blue-700 dark:text-sky-400 border border-blue-100 dark:border-blue-800 flex items-center justify-center">
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -57,29 +57,29 @@ export default function ServicesPage() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-xs font-mono font-bold text-blue-600 dark:text-sky-400 uppercase tracking-wider">
+                    <span className="text-xs font-mono font-bold text-blue-700 dark:text-sky-400 uppercase tracking-wider">
                       Service 0{index + 1}
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-[family-name:var(--font-space-grotesk)]">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B1F4B] dark:text-white font-[family-name:var(--font-space-grotesk)]">
                       {srv.title}
                     </h2>
                   </div>
                 </div>
 
-                <p className="text-lg font-medium text-slate-800 dark:text-slate-200 leading-snug">
+                <p className="text-lg font-semibold text-blue-900 dark:text-sky-300 leading-snug">
                   {srv.headline}
                 </p>
 
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
                   {srv.shortDescription}
                 </p>
 
                 {/* Who It's For */}
-                <div className="bg-slate-50 dark:bg-slate-900/60 p-5 rounded-xl border border-slate-100 dark:border-slate-800">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono mb-2">
+                <div className="bg-[#F8FAFC] dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200/70 dark:border-slate-800">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono mb-2">
                     Who This Is For
                   </h3>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  <p className="text-sm text-slate-800 dark:text-slate-300 leading-relaxed">
                     {srv.targetAudience}
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export default function ServicesPage() {
                       {srv.toolsUsed.map((tool) => (
                         <span
                           key={tool}
-                          className="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold"
+                          className="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-300 font-semibold border border-slate-200/60 dark:border-slate-700"
                         >
                           {tool}
                         </span>
@@ -101,7 +101,7 @@ export default function ServicesPage() {
                   </div>
                   <div>
                     <span className="text-slate-400 block mb-1">TYPICAL TIMELINE</span>
-                    <span className="font-bold text-slate-800 dark:text-slate-200">
+                    <span className="font-bold text-[#0B1F4B] dark:text-slate-200">
                       {srv.typicalTimeline}
                     </span>
                   </div>
@@ -109,15 +109,15 @@ export default function ServicesPage() {
               </div>
 
               {/* Right Column: Deliverables, Outcomes, and CTA */}
-              <div className="lg:w-5/12 w-full space-y-6 bg-slate-50/70 dark:bg-slate-900/40 p-6 sm:p-8 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+              <div className="lg:w-5/12 w-full space-y-6 bg-[#EFF6FF]/60 dark:bg-slate-900/50 p-6 sm:p-8 rounded-2xl border border-blue-100 dark:border-slate-800 shadow-[0_4px_16px_rgba(11,31,75,0.03)] dark:shadow-none">
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-blue-700 dark:text-sky-400 font-mono mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-blue-800 dark:text-sky-400 font-mono mb-3">
                     What We Deliver
                   </h3>
-                  <ul className="space-y-2.5 text-sm text-slate-700 dark:text-slate-300">
+                  <ul className="space-y-2.5 text-sm text-slate-800 dark:text-slate-300">
                     {srv.deliverables.map((deliv, i) => (
                       <li key={i} className="flex items-start">
-                        <span className="text-blue-600 dark:text-sky-400 mr-2 font-bold">
+                        <span className="text-blue-700 dark:text-sky-400 mr-2 font-black">
                           •
                         </span>
                         <span>{deliv}</span>
@@ -126,14 +126,14 @@ export default function ServicesPage() {
                   </ul>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-mono mb-3">
+                <div className="pt-4 border-t border-blue-200/60 dark:border-slate-800">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400 font-mono mb-3">
                     Typical Client Outcomes
                   </h3>
-                  <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+                  <ul className="space-y-2 text-sm text-slate-800 dark:text-slate-300">
                     {srv.outcomes.map((outc, i) => (
                       <li key={i} className="flex items-start">
-                        <span className="text-emerald-500 mr-2 font-bold">✓</span>
+                        <span className="text-emerald-600 dark:text-emerald-400 mr-2 font-bold">✓</span>
                         <span className="font-medium">{outc}</span>
                       </li>
                     ))}

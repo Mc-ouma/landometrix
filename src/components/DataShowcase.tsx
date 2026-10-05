@@ -105,26 +105,26 @@ export default function DataShowcase() {
   const areaD = `${pathD} L ${points[points.length - 1].x} ${height - paddingY} L ${points[0].x} ${height - paddingY} Z`;
 
   return (
-    <div className="bg-white dark:bg-[#0F172A] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
+    <div className="bg-white dark:bg-[#0F172A] rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-[0_12px_36px_-6px_rgba(11,31,75,0.08)] dark:shadow-2xl overflow-hidden">
       {/* Top Controller Bar */}
-      <div className="p-4 sm:p-6 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-50/50 dark:bg-slate-900/40">
+      <div className="p-4 sm:p-6 border-b border-blue-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#EFF6FF]/60 dark:bg-slate-900/50">
         <div>
           <div className="flex items-center space-x-2">
             <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-sky-400 font-mono">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-700 dark:text-sky-400 font-mono">
               Live Showcase
             </span>
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-1">
+          <h3 className="text-xl font-bold text-[#0B1F4B] dark:text-white mt-1 font-[family-name:var(--font-space-grotesk)]">
             {activeDataset.name}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
             {activeDataset.description}
           </p>
         </div>
 
         {/* Dataset Selection Tabs */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-200/70 dark:bg-slate-800 rounded-lg">
+        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-200/80 dark:bg-slate-800/90 rounded-xl border border-slate-300/40 dark:border-slate-700/60">
           {DATASETS.map((ds, idx) => (
             <button
               key={ds.id}
@@ -133,10 +133,10 @@ export default function DataShowcase() {
                 setHoveredIndex(null);
               }}
               type="button"
-              className={`tap-target px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`tap-target px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 selectedDatasetIndex === idx
-                  ? "bg-white dark:bg-blue-600 text-blue-700 dark:text-white shadow-sm"
-                  : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                  ? "bg-blue-600 dark:bg-blue-600 text-white shadow-sm"
+                  : "text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-white hover:bg-white/70 dark:hover:bg-slate-700"
               }`}
             >
               {ds.id === "agritech" ? "AgriTech" : ds.id === "fintech" ? "FinTech SLA" : "Web Growth"}
@@ -197,26 +197,26 @@ export default function DataShowcase() {
       <div className="p-4 sm:p-6">
         {showTableView ? (
           /* Accessible Table Alternative (WCAG AA Compliant) */
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
             <table
               className="w-full text-left text-sm border-collapse"
               aria-label={`Data table showing ${activeDataset.name}`}
             >
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs">
-                  <th scope="col" className="py-2.5 px-3 font-semibold">Location / Timeline</th>
-                  <th scope="col" className="py-2.5 px-3 font-semibold">{activeDataset.unit} (Current)</th>
-                  <th scope="col" className="py-2.5 px-3 font-semibold">{activeDataset.secondaryUnit}</th>
-                  <th scope="col" className="py-2.5 px-3 font-semibold">Impact</th>
+                <tr className="border-b border-blue-200 dark:border-slate-700 bg-blue-50/80 dark:bg-slate-800/70 text-[#0B1F4B] dark:text-slate-300 text-xs">
+                  <th scope="col" className="py-3 px-4 font-bold">Location / Timeline</th>
+                  <th scope="col" className="py-3 px-4 font-bold text-blue-800 dark:text-sky-300">{activeDataset.unit} (Current)</th>
+                  <th scope="col" className="py-3 px-4 font-bold text-slate-700 dark:text-slate-400">{activeDataset.secondaryUnit}</th>
+                  <th scope="col" className="py-3 px-4 font-bold text-emerald-800 dark:text-emerald-400">Impact</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {activeDataset.data.map((row) => (
-                  <tr key={row.label} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                    <td className="py-2.5 px-3 font-medium text-slate-900 dark:text-white">{row.label}</td>
-                    <td className="py-2.5 px-3 font-mono font-bold text-blue-600 dark:text-sky-400">{row.formattedValue}</td>
-                    <td className="py-2.5 px-3 font-mono text-slate-500">{row.secondaryValue}</td>
-                    <td className="py-2.5 px-3 font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold">{row.change}</td>
+                  <tr key={row.label} className="hover:bg-blue-50/40 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="py-3 px-4 font-semibold text-[#0B1F4B] dark:text-white">{row.label}</td>
+                    <td className="py-3 px-4 font-mono font-bold text-blue-700 dark:text-sky-400">{row.formattedValue}</td>
+                    <td className="py-3 px-4 font-mono text-slate-600 dark:text-slate-400">{row.secondaryValue}</td>
+                    <td className="py-3 px-4 font-mono text-xs text-emerald-700 dark:text-emerald-400 font-bold">{row.change}</td>
                   </tr>
                 ))}
               </tbody>
