@@ -233,15 +233,15 @@ export default function DataShowcase() {
                 aria-label={`Interactive chart visualizing ${activeDataset.name}`}
               >
                 <defs>
-                  {/* Gradient for M-Peak Area */}
+                  {/* Subtle Area Gradient */}
                   <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#1D4ED8" stopOpacity="0.35" />
-                    <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
+                    <stop offset="0%" stopColor="#1D4ED8" stopOpacity="0.2" />
+                    <stop offset="100%" stopColor="#1D4ED8" stopOpacity="0.0" />
                   </linearGradient>
 
-                  {/* Gradient for Bars */}
+                  {/* Base Bar Gradient */}
                   <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#38BDF8" />
+                    <stop offset="0%" stopColor="#2563EB" />
                     <stop offset="100%" stopColor="#1D4ED8" />
                   </linearGradient>
                 </defs>
@@ -257,7 +257,7 @@ export default function DataShowcase() {
                       x2={width - paddingX}
                       y2={y}
                       stroke="currentColor"
-                      className="text-slate-200 dark:text-slate-800"
+                      className="text-line stroke-current opacity-80"
                       strokeWidth="1"
                       strokeDasharray="4 4"
                     />
@@ -271,7 +271,7 @@ export default function DataShowcase() {
                   x2={width - paddingX}
                   y2={height - paddingY}
                   stroke="currentColor"
-                  className="text-slate-300 dark:text-slate-700"
+                  className="text-line-strong stroke-current opacity-80"
                   strokeWidth="1.5"
                 />
 
@@ -284,46 +284,52 @@ export default function DataShowcase() {
                     <path
                       d={pathD}
                       fill="none"
-                      stroke="#1D4ED8"
-                      strokeWidth="3.5"
+                      strokeWidth="3"
                       strokeLinecap="round"
                       strokeLinejoin="miter"
-                      className="transition-all duration-300 dark:stroke-sky-400"
+                      className="transition-all duration-300 stroke-blue-700 dark:stroke-brand"
                     />
 
                     {/* Peak Nodes echoing the LM Monogram angle */}
-                    {points.map((pt, idx) => (
-                      <g
-                        key={idx}
-                        onMouseEnter={() => setHoveredIndex(idx)}
-                        className="cursor-pointer group"
-                      >
-                        {/* Outer pulse indicator */}
-                        <circle
-                          cx={pt.x}
-                          cy={pt.y}
-                          r={hoveredIndex === idx ? 8 : 4}
-                          className="fill-blue-600 dark:fill-sky-400 transition-all duration-200 opacity-90"
-                        />
-                        {/* Peak Monogram Square motif */}
-                        <rect
-                          x={pt.x - 3}
-                          y={pt.y - 3}
-                          width="6"
-                          height="6"
-                          className="fill-white dark:fill-slate-900 transition-all"
-                        />
-                        {/* Text Label on X Axis */}
-                        <text
-                          x={pt.x}
-                          y={height - 12}
-                          textAnchor="middle"
-                          className="text-[11px] font-medium fill-slate-500 dark:fill-slate-400"
+                    {points.map((pt, idx) => {
+                      const isHovered = hoveredIndex === idx;
+                      return (
+                        <g
+                          key={idx}
+                          onMouseEnter={() => setHoveredIndex(idx)}
+                          className="cursor-pointer group"
                         >
-                          {pt.label}
-                        </text>
-                      </g>
-                    ))}
+                          {/* Outer pulse indicator: sky blue only when hovered */}
+                          <circle
+                            cx={pt.x}
+                            cy={pt.y}
+                            r={isHovered ? 7 : 4}
+                            className={`transition-all duration-200 ${
+                              isHovered
+                                ? "fill-sky-accent opacity-100"
+                                : "fill-blue-700 dark:fill-brand opacity-80"
+                            }`}
+                          />
+                          {/* Peak Monogram Square motif */}
+                          <rect
+                            x={pt.x - 2.5}
+                            y={pt.y - 2.5}
+                            width="5"
+                            height="5"
+                            className="fill-surface transition-all"
+                          />
+                          {/* Text Label on X Axis */}
+                          <text
+                            x={pt.x}
+                            y={height - 12}
+                            textAnchor="middle"
+                            className="text-[11px] font-medium fill-fg-muted"
+                          >
+                            {pt.label}
+                          </text>
+                        </g>
+                      );
+                    })}
                   </>
                 ) : (
                   /* Comparative Bar Chart */
@@ -347,16 +353,16 @@ export default function DataShowcase() {
                             width={barWidth}
                             height={barH}
                             rx="4"
-                            fill="url(#barGradient)"
+                            fill={isHovered ? "var(--color-sky-accent)" : "url(#barGradient)"}
                             className={`transition-all duration-300 ${
-                              isHovered ? "opacity-100 filter brightness-110" : "opacity-90"
+                              isHovered ? "opacity-100" : "opacity-85"
                             }`}
                           />
                           <text
                             x={x + barWidth / 2}
                             y={height - 12}
                             textAnchor="middle"
-                            className="text-[11px] font-medium fill-slate-500 dark:fill-slate-400"
+                            className="text-[11px] font-medium fill-fg-muted"
                           >
                             {d.label}
                           </text>
@@ -370,14 +376,14 @@ export default function DataShowcase() {
 
             {/* Hover Tooltip Card */}
             {hoveredIndex !== null && (
-              <div className="absolute top-2 right-4 bg-slate-900/95 dark:bg-slate-800/95 text-white p-3 rounded-lg shadow-lg border border-slate-700 pointer-events-none text-xs backdrop-blur-sm animate-fade-in">
-                <div className="font-semibold text-slate-300">
+              <div className="absolute top-2 right-4 bg-surface-elevated text-fg p-3 rounded-xl shadow-md border border-line-strong pointer-events-none text-xs backdrop-blur-sm animate-fade-in">
+                <div className="font-semibold text-fg-secondary">
                   {activeDataset.data[hoveredIndex].label}
                 </div>
-                <div className="text-base font-extrabold text-sky-300 font-mono mt-0.5">
+                <div className="text-base font-extrabold text-sky-accent font-mono mt-0.5">
                   {activeDataset.data[hoveredIndex].formattedValue}
                 </div>
-                <div className="text-[10px] text-emerald-400 font-medium">
+                <div className="text-[10px] text-emerald-500 font-medium">
                   {activeDataset.data[hoveredIndex].change} vs baseline
                 </div>
               </div>

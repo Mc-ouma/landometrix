@@ -69,37 +69,38 @@
   color-scheme: dark;
 
   /* ── Semantic mappings: DARK ────────────────────────────── */
-  /* Page is the deepest layer; surfaces step up in brightness */
-  --bg-page: #08142E;
-  --bg-surface: #0D1F45;
-  --bg-surface-elevated: #132A5A;
-  --bg-subtle: #0A1936;
-  --bg-card: #0D1F45;
-  --bg-inverse: #0F2A66;
+  /* Desaturated blue-slate surfaces; saturated blue is kept for
+     buttons, links, focus and chart highlights only */
+  --bg-page: #0B1220;
+  --bg-surface: #111A2C;
+  --bg-surface-elevated: #18233A;
+  --bg-subtle: #0E1626;
+  --bg-card: #111A2C;
+  --bg-inverse: #14223F;
 
-  --border-subtle: #1A2D5A;
-  --border-medium: #2A4079;
-  --border-highlight: #2F55B8;
+  --border-subtle: #1E2A42;
+  --border-medium: #2C3B58;
+  --border-highlight: #2F4A80;
   --border-focus: #38BDF8;
 
-  --text-heading: #F4F7FF;
-  --text-primary: #E6ECFA;
-  --text-secondary: #B4C2E0;
-  --text-muted: #8798BD;
+  --text-heading: #F1F5FB;
+  --text-primary: #E2E8F3;
+  --text-secondary: #AEBBD3;
+  --text-muted: #8392AF;
   --text-on-primary: #FFFFFF;
-  --text-on-inverse: #F4F7FF;
+  --text-on-inverse: #F1F5FB;
   --text-brand: #7BA6FF;
   --text-accent: #38BDF8;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
-  --shadow-glow: 0 8px 28px -8px rgba(56, 189, 248, 0.30);
+  --shadow-glow: 0 8px 28px -8px rgba(56, 189, 248, 0.25);
 
-  --dot-color: rgba(148, 163, 184, 0.18);
+  --dot-color: rgba(148, 163, 184, 0.16);
 
-  --header-bg: rgba(8, 20, 46, 0.82);
-  --header-border: rgba(42, 64, 121, 0.6);
+  --header-bg: rgba(11, 18, 32, 0.82);
+  --header-border: rgba(46, 60, 88, 0.6);
 }
 
 /* Semantic tokens exposed as Tailwind utilities:

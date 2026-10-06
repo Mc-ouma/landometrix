@@ -28,7 +28,7 @@ export default function CTASection({
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         {/* Monogram watermark icon */}
-        <div className="inline-flex justify-center items-center w-10 h-12 mb-6 text-sky-accent opacity-90">
+        <div className="inline-flex justify-center items-center w-10 h-12 mb-6 text-brand opacity-40 dark:opacity-30">
           <svg
             viewBox="0 0 219 268"
             fill="none"
@@ -52,7 +52,7 @@ export default function CTASection({
           {title}
         </h2>
 
-        <p className="text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-lg sm:text-xl text-blue-100 dark:text-fg-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
           {subtitle}
         </p>
 
@@ -88,7 +88,7 @@ export default function CTASection({
         </div>
 
         {/* Reassurance Microcopy */}
-        <p className="text-xs text-blue-200/80 mt-6">
+        <p className="text-xs text-blue-200/80 dark:text-fg-muted mt-6">
           Response within 24 hours • Non-disclosure agreement guaranteed • Direct communication
         </p>
       </div>
