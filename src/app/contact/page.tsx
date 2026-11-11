@@ -189,8 +189,8 @@ export default function ContactPage() {
                         if (errors.name) setErrors({ ...errors, name: undefined });
                       }}
                       className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${errors.name
-                          ? "border-red-500 focus:ring-red-500"
-                          : "border-line-strong focus:border-brand"
+                        ? "border-red-500 focus:ring-red-500"
+                        : "border-line-strong focus:border-brand"
                         }`}
                       placeholder="e.g. Dennis Mutua"
                     />
@@ -217,8 +217,8 @@ export default function ContactPage() {
                         if (errors.email) setErrors({ ...errors, email: undefined });
                       }}
                       className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${errors.email
-                          ? "border-red-500 focus:ring-red-500"
-                          : "border-line-strong focus:border-brand"
+                        ? "border-red-500 focus:ring-red-500"
+                        : "border-line-strong focus:border-brand"
                         }`}
                       placeholder="dennis@example.com"
                     />
@@ -299,8 +299,8 @@ export default function ContactPage() {
                       if (errors.message) setErrors({ ...errors, message: undefined });
                     }}
                     className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${errors.message
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-line-strong focus:border-brand"
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-line-strong focus:border-brand"
                       }`}
                     placeholder="Briefly describe your current setup (e.g., 'We have multiple spreadsheets tracking regional harvests and need an automated dashboard and reporting system...')"
                   />
@@ -341,7 +341,7 @@ export default function ContactPage() {
                 Connect directly with our engineering team on WhatsApp for quick inquiries, scope feasibility, or urgent requirements.
               </p>
               <a
-                href="https://wa.me/254700000000?text=Hi%20Landometrix,%20I'd%20like%20to%20request%20a%20quote"
+                href="https://wa.me/254725492920?text=Hi%20Landometrix,%20I'd%20like%20to%20request%20a%20quote"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="tap-target inline-flex items-center justify-center w-full px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-colors shadow-sm"
@@ -374,10 +374,10 @@ export default function ContactPage() {
                     Phone / Tel
                   </span>
                   <a
-                    href="tel:+254700000000"
+                    href="tel:+254725492920"
                     className="font-semibold text-heading hover:underline"
                   >
-                    +254 725492920 <span className="text-xs text-amber-500 font-mono">[REPLACE]</span>
+                    +254725492920 <span className="text-xs text-amber-500 font-mono"></span>
                   </a>
                 </div>
 

@@ -93,7 +93,7 @@ export default function RootLayout({
       "@type": "ContactPoint",
       contactType: "customer service",
       email: "hello@landometrix.com",
-      telephone: "+254-700-000000",
+      telephone: "+254-725-492920.",
       availableLanguage: ["English", "Swahili"],
     },
   };

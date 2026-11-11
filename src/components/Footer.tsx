@@ -21,7 +21,7 @@ export default function Footer() {
             <div className="pt-2 flex items-center space-x-4 text-slate-400">
               {/* WhatsApp direct chat link */}
               <a
-                href="https://wa.me/254700000000?text=Hi%20Landometrix,%20I'd%20like%20to%20request%20a%20quote"
+                href="https://wa.me/254725492920?text=Hi%20Landometrix,%20I'd%20like%20to%20request%20a%20quote"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="tap-target inline-flex items-center text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
@@ -165,7 +165,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="tel:+254700000000"
+                  href="tel:+254725492920"
                   className="hover:text-white transition-colors"
                 >
                   +254 725492920

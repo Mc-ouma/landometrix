@@ -16,7 +16,7 @@ export default function CTASection({
   primaryCtaText = "Book a Free Consultation",
   primaryCtaHref = "/contact",
   secondaryCtaText = "Message on WhatsApp",
-  secondaryCtaHref = "https://wa.me/254700000000?text=Hi%20Landometrix,%20I'd%20like%20to%20discuss%20a%20project",
+  secondaryCtaHref = "https://wa.me/254725492920?text=Hi%20Landometrix,%20I'd%20like%20to%20discuss%20a%20project",
   className = "",
 }: CTASectionProps) {
   return (
