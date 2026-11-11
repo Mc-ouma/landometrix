@@ -49,7 +49,7 @@ export const COMPANY_VALUES: CompanyValue[] = [
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: "founder",
-    name: "Dennis Koech [REPLACE: Founder / Principal Lead]",
+    name: "David Ouma [REPLACE: Founder / Principal Lead]",
     role: "Founder & Lead Data Architect",
     bio: "Over 10 years of experience building data pipelines, business intelligence tools, and custom web platforms across East Africa and Europe. Passionate about turning messy field records into high-velocity operational decisions.",
     credentials: "BSc Computer Science, Certified Data Management Professional (CDMP)",
@@ -58,7 +58,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: "data-lead",
-    name: "Faith Wanjiku [REPLACE: Senior Data Analyst]",
+    name: "Crafton Lewis [REPLACE: Senior Data Analyst]",
     role: "Senior Data Scientist & Analytics Lead",
     bio: "Specializes in statistical modeling, inventory forecasting, and data pipeline normalization in PostgreSQL and Python. Previously designed telemetry models for high-growth logistics and agritech ventures.",
     credentials: "MSc Statistics & Machine Learning, Nairobi",

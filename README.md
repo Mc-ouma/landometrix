@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Landometrix
 
-## Getting Started
+Landometrix is a Next.js site configured for static export and hosting on
+Cloudflare Pages. The contact form is handled by a Pages Function at
+`/api/contact`.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Cloudflare Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push this repository to GitHub or another Git provider supported by Pages.
+2. In the Cloudflare dashboard, create a **Pages** project and choose
+   **Connect to Git**. Do not create a **Worker** project or configure a
+   Wrangler deploy command for this site.
+3. Use these build settings:
+   - Framework preset: **Next.js (Static HTML Export)**, or **None** if that
+     preset is unavailable
+   - Build command: `npm run build`
+   - Build output directory: `out`
+   - Root directory: `/`
+4. Add the contact form settings in **Settings → Variables and Secrets** for
+   both Production and Preview deployments:
+   - `RESEND_API_KEY` — a secret containing the API key from Resend
+   - `CONTACT_EMAIL` — the address that should receive inquiries
+5. Deploy. Pages serves the static export and automatically discovers the
+   `functions/` directory, which provides `POST /api/contact`.
+6. To use a custom domain, add it under the Pages project’s **Custom domains**
+   settings and follow Cloudflare’s DNS instructions.
 
-## Learn More
+The site uses Next.js `output: "export"` in `next.config.ts`, so the build
+generates the static site in `out/`. Server-rendered routes and Next.js API
+routes are not part of this deployment; dynamic server functionality must be
+implemented as Cloudflare Pages Functions. The contact function requires the
+Resend settings above to send real email.
 
-To learn more about Next.js, take a look at the following resources:
+### Troubleshooting a Wrangler/OpenNext build failure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Next.js build should finish with the static files exported to `out/`.
+If Cloudflare then runs `npx wrangler deploy` or `opennextjs-cloudflare build`,
+the project was set up as a Worker rather than a Pages static-site project.
+Remove that Worker deployment configuration and deploy using the Pages
+settings above. This app's static export does not produce the standalone
+Next.js server files required by OpenNext.

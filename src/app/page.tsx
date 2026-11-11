@@ -350,10 +350,10 @@ export default function Home() {
               </p>
               <div>
                 <div className="font-bold text-heading text-base">
-                  Josephine Kariuki [REPLACE]
+                  Josephine Kariuki
                 </div>
                 <div className="text-xs text-fg-muted">
-                  Head of Operations, KilimoTrack [REPLACE]
+                  Head of Operations, KilimoTrack
                 </div>
               </div>
             </div>
@@ -368,10 +368,10 @@ export default function Home() {
               </p>
               <div>
                 <div className="font-bold text-heading text-base">
-                  Samuel Ndung&apos;u [REPLACE]
+                  Samuel Ndung&apos;u
                 </div>
                 <div className="text-xs text-fg-muted">
-                  VP Engineering, NuruPay [REPLACE]
+                  VP Engineering, NuruPay
                 </div>
               </div>
             </div>
@@ -385,10 +385,10 @@ export default function Home() {
               </p>
               <div>
                 <div className="font-bold text-heading text-base">
-                  Dr. Amina Abdi [REPLACE]
+                  Dr. Amina Abdi
                 </div>
                 <div className="text-xs text-fg-muted">
-                  Executive Director, AfyaTrust [REPLACE]
+                  Executive Director, AfyaTrust
                 </div>
               </div>
             </div>
