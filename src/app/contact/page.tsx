@@ -188,11 +188,10 @@ export default function ContactPage() {
                         setFormData({ ...formData, name: e.target.value });
                         if (errors.name) setErrors({ ...errors, name: undefined });
                       }}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${
-                        errors.name
+                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${errors.name
                           ? "border-red-500 focus:ring-red-500"
                           : "border-line-strong focus:border-brand"
-                      }`}
+                        }`}
                       placeholder="e.g. Dennis Mutua"
                     />
                     {errors.name && (
@@ -217,11 +216,10 @@ export default function ContactPage() {
                         setFormData({ ...formData, email: e.target.value });
                         if (errors.email) setErrors({ ...errors, email: undefined });
                       }}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${
-                        errors.email
+                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${errors.email
                           ? "border-red-500 focus:ring-red-500"
                           : "border-line-strong focus:border-brand"
-                      }`}
+                        }`}
                       placeholder="dennis@example.com"
                     />
                     {errors.email && (
@@ -300,11 +298,10 @@ export default function ContactPage() {
                       setFormData({ ...formData, message: e.target.value });
                       if (errors.message) setErrors({ ...errors, message: undefined });
                     }}
-                    className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${
-                      errors.message
+                    className={`w-full px-4 py-3 rounded-xl border text-sm transition-all bg-surface text-fg shadow-xs ${errors.message
                         ? "border-red-500 focus:ring-red-500"
                         : "border-line-strong focus:border-brand"
-                    }`}
+                      }`}
                     placeholder="Briefly describe your current setup (e.g., 'We have multiple spreadsheets tracking regional harvests and need an automated dashboard and reporting system...')"
                   />
                   {errors.message && (
@@ -380,7 +377,7 @@ export default function ContactPage() {
                     href="tel:+254700000000"
                     className="font-semibold text-heading hover:underline"
                   >
-                    +254 700 000 000 <span className="text-xs text-amber-500 font-mono">[REPLACE]</span>
+                    +254 725492920 <span className="text-xs text-amber-500 font-mono">[REPLACE]</span>
                   </a>
                 </div>
 

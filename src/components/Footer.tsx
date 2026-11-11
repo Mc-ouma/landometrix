@@ -168,7 +168,7 @@ export default function Footer() {
                   href="tel:+254700000000"
                   className="hover:text-white transition-colors"
                 >
-                  +254 700 000 000
+                  +254 725492920
                 </a>
               </li>
               <li className="pt-2">
